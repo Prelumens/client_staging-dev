@@ -1,0 +1,1611 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap");
+
+* {
+  font-family: Quicksand !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+.content{
+  background-color: #f9f8fd;
+  padding: 10px;
+}
+.square {
+  border-radius: 0px;
+}
+
+.jumbotron {
+  background-image: linear-gradient(to right, #007bff, #000);
+  color: #fff;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 1rem;
+  padding: 1rem;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.form-container {
+  background-color: #f4f7fc;
+  padding: 1em;
+}
+
+svg {
+  vertical-align: baseline;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  padding: 6px;
+  cursor: pointer;
+  background: linear-gradient(270deg, #3fa1a9, #1890ff);
+  margin-bottom: 25px;
+}
+
+.img-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.img-upload:before {
+  content: url("https://img.icons8.com/material-rounded/24/000000/upload.png");
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #63d3a6;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #fff;
+}
+.img-upload:hover:before {
+  opacity: 1;
+}
+
+.img-upload-update:before {
+  content: url("https://img.icons8.com/material-rounded/24/000000/upload.png");
+  font-size: 120px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #63d3a6;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #fff;
+}
+.img-upload-update:hover:before {
+  opacity: 1;
+}
+img {
+  width: auto;
+  height: 100%;
+}
+
+label {
+  font-weight: 700;
+  color: #676767;
+}
+
+input {
+  border-radius: 15px;
+  border: 1px solid #b7b7b7;
+  padding: 5px 5px 5px 10px;
+  font-size: 18px;
+  transition: 0.2s;
+}
+input:focus {
+  outline: none;
+  border: 1px solid #64d488;
+}
+
+/* Admin dashboard cards */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  background: #1890ff;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-left: auto;
+  line-height: 55px;
+}
+
+.circlebox {
+  border-radius: 12px;
+  box-shadow: 0 25px 27px rgb(0 0 0 / 10%);
+}
+
+/* Profile Page */
+.card-profile-head .ant-card-head {
+  border-bottom: 0px;
+  padding: 0px 16px;
+}
+
+.card-profile-head {
+  margin: -53px 0 24px;
+}
+
+.card-profile-head .ant-card-head .ant-avatar {
+  box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+  border-radius: 8px;
+  margin: 0;
+}
+
+.card-profile-head .ant-card-head .avatar-info {
+  margin-left: 16px;
+  overflow-wrap: break-word;
+}
+
+.card-profile-head {
+  box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+  border-radius: 8px;
+  margin: 0;
+}
+
+.card-profile-information .ant-descriptions .ant-descriptions-row > td,
+.card-profile-information .ant-descriptions .ant-descriptions-row > th {
+  padding-bottom: 16px;
+}
+.card-profile-information hr {
+  opacity: 0.2;
+}
+
+.card-profile-information {
+  margin: 24px 0 24px;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+  border-radius: 8px;
+}
+
+/*  Landing Page*/
+.layout-default.ant-layout.layout-landing {
+  background-image: url("https://image.ibb.co/de6JzG/bitmap_1_1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.landing-page {
+  margin: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/landing-bg.png") no-repeat center top;
+  box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.2);
+  padding: 80px 40px 80px 40px;
+}
+
+.landing-page .content {
+  max-width: 480px;
+}
+.landing-page * {
+  color: #fff;
+}
+.landing-page .content h1 {
+  font-size: 48px;
+  color: #fff;
+}
+.landing-page .content {
+  display: flex;
+  width: 110rem;
+  max-width: 100%;
+  height: 100%;
+  margin: 1rem auto 0;
+}
+
+.landing-text-wrap {
+  flex-basis: 55%;
+  display: flex;
+  align-items: center;
+}
+
+.landing-text {
+  width: 75%;
+}
+
+.hero-title {
+  animation: heading;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+
+.hero-title {
+  color: var(--white);
+  font-size: 6.4rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.hero-description {
+  display: block;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hero-image {
+  flex-basis: 45%;
+  display: flex;
+  align-items: center;
+}
+
+.landing-page .landing-img img {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  /* Hero */
+  .content {
+    flex-direction: column;
+  }
+  .landing-text-wrap {
+    flex-basis: initial;
+    text-align: center;
+  }
+  .landing-text {
+    width: initial;
+  }
+  .hero-title {
+    font-size: 4.8rem;
+  }
+  .hero-image {
+    margin-top: 3rem;
+    flex-basis: initial;
+    display: flex;
+    justify-content: center;
+  }
+  .log-in-wrapper .signin-form {
+    padding: 40px !important;
+  }
+}
+
+.log-in-wrapper {
+  width: 100%;
+}
+
+.signin {
+  width: 100%;
+  height: 100%;
+  background-position: 100%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/landing-objects.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  white-space: nowrap;
+}
+
+.signin h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #141414;
+}
+
+.signin h5 {
+  font-weight: 400;
+  color: #8c8c8c;
+  font-size: 20px;
+  white-space: normal;
+}
+
+.row-col .ant-row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.login-input {
+  border-radius: 6px;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  font-weight: 600;
+  color: #8c8c8c;
+}
+.login-input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #141414;
+}
+
+/* Student Dashboard */
+.student-dashboard-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/student-home.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.dashboard-items {
+  margin-top: 50ox;
+}
+.header-solid .ant-card-head {
+  border-bottom: 0;
+}
+.h-full {
+  height: 100%;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.layout-student-dashboard .ant-card {
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+}
+
+/* Student List of Courses */
+.student-list-of-courses-banner-bg {
+  margin-bottom: 11px;
+  color: white;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/student-home.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+/* Student enrolled courses */
+.student-enrolled-courses-banner-bg {
+  margin-bottom: 11px;
+  color: white;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/student-home.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+/* Create quiz */
+.quiz-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/quiz-banner.pngs/quiz-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+
+.option-div .options .option p {
+  font-size: 16px;
+}
+
+.created-questions-card {
+  box-shadow: none;
+  background-color: #fafafa;
+  border: 1px solid #f5f5f5;
+}
+
+.create-quiz-content .quiz-header .ant-switch-checked {
+  box-shadow: 0 0 0 2px #e6f7ff;
+}
+
+/* Course Quiz List */
+.quiz-list .ant-list-item-meta-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #141414;
+}
+.quiz-list .status {
+  font-size: 14px;
+  font-weight: 700;
+}
+.quiz-list .ant-list-item {
+  padding: 11px 0;
+  border-bottom: 0;
+}
+
+.response-list .score {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Instructor Course List */
+.instructorbanner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.instructor-dashboard-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/student-home.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.instructor-list-of-students-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.instructor-add-course-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/student-home.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.instructor-lessons {
+  cursor: pointer;
+}
+
+.course-listing {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
+.course-listing:hover {
+  backface-visibility: hidden;
+  transform: scale(1.05, 1.05);
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+}
+
+.layout-default .ant-card {
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+}
+
+.layout-dashboard {
+  position: relative;
+  overflow-x: hidden;
+}
+@media (min-width: 992px) {
+  .layout-dashboard {
+    overflow: auto;
+  }
+}
+
+/* Admins jumbotron */
+.admin-dashboard-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.admin-list-of-students-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.admin-add-students-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.admin-list-of-instructors-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.admin-add-instructors-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+
+.admin-manage-courses-banner-bg {
+  margin-bottom: 11px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-size: cover !important;
+  background-position: 50%;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/student-home.png") no-repeat center top;
+  /* box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); */
+  padding: 80px 40px 80px 40px;
+}
+/* Course view student */
+
+.ant-menu-item {
+  padding: 20px;
+  color: #141414;
+  border-radius: 8px;
+  align-items: center;
+  white-space: nowrap;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  font-weight: 600;
+  background-color: #e6f7ff;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.containers-shadowed {
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  margin-bottom: 24px;
+}
+
+/* student single quiz summary page */
+.summary-bg {
+  height: 200px;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-image: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/quiz-banner.png");
+  background-size: cover;
+  background-position: 50%;
+}
+/* student single quiz page */
+.profile-nav-bg {
+  height: 200px;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-image: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/instructor-page-banner.png");
+  background-size: cover;
+  background-position: 50%;
+}
+
+.card-quiz-head .ant-card-head {
+  border-bottom: 0px;
+  padding: 0px 16px;
+}
+
+.card-quiz-head {
+  border-radius: 8px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  margin: -53px 0 24px;
+  margin: -53px 24px 24px;
+}
+
+.card-quiz-information {
+  border-radius: 8px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 3%);
+}
+
+.card-quiz-head .ant-card-head .avatar-info {
+  margin-left: 16px;
+}
+
+.ant-card-head-title p {
+  font-weight: 600;
+  color: #8c8c8c;
+  margin-bottom: 0;
+  overflow-wrap: break-word !important;
+}
+
+
+.card-quiz-head .ant-card-head .avatar-info h4 {
+  font-size: 24px;
+}
+
+.card-quiz-head .ant-card-head .avatar-info h4 {
+  font-size: 24px;
+}
+
+.attempQuestionCard {
+  margin: 0px 24px 24px;
+}
+.question {
+  width: 75%;
+}
+
+.options {
+  position: relative;
+  padding-left: 40px;
+}
+
+#options label {
+  display: block;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.options input {
+  opacity: 0;
+}
+
+.radio {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #555;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.checkmark {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #555;
+  border: 1px solid #ddd;
+}
+
+.options input:checked ~ .radio:after {
+  display: block;
+}
+
+.options .radio:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  display: block;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out 0s;
+}
+.options input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.options .checkmark:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  display: block;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="radio"]:checked ~ .radio {
+  background: #007bff;
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="radio"]:checked ~ .radio:after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.options input[type="checkbox"]:checked ~ .checkmark {
+  background: #007bff;
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="checkbox"]:checked ~ .checkmark:after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media (max-width: 576px) {
+  .question {
+    width: 100%;
+    word-spacing: 2px;
+  }
+}
+
+.answer-quiz-container {
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  max-width: 70vw;
+  margin: auto;
+  border-radius: 8px;
+  padding: 48px 40px;
+}
+
+.card-profile-information hr {
+  opacity: 0.2;
+}
+
+.card-profile-information .ant-descriptions .ant-descriptions-row > td,
+.card-profile-information .ant-descriptions .ant-descriptions-row > th {
+  padding-bottom: 16px;
+}
+
+.card-profile-information hr {
+  opacity: 0.2;
+}
+
+.result-gif {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.gradient-banner {
+  background: rgb(84, 84, 224);
+  background: linear-gradient(
+    90deg,
+    rgba(84, 84, 224, 0.7964227927499125) 22%,
+    rgba(88, 183, 213, 1) 69%,
+    rgba(196, 240, 238, 1) 100%
+  );
+  box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.page-header{
+  overflow-wrap: break-word;
+}
+
+/* .gradient-banner .ant-page-header-heading .ant-page-header-heading-title{
+  color: #fff;
+} */
+/* base */
+.header-solid .ant-card-head {
+  border-bottom: 0;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.ant-card.ant-list-yes .ant-list-header {
+  border: 0px;
+}
+
+.ant-card.ant-list-yes .ant-list-header h6 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8c8c8c;
+  margin: 6px 0;
+}
+.card-header-date {
+  margin-bottom: 0;
+  font-weight: 700;
+  color: #8c8c8c;
+}
+
+.card-header-date > * {
+  vertical-align: middle;
+}
+
+/* course list */
+
+.template {
+  display: flex;
+  background: #fff;
+  border-radius: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: 0;
+}
+
+.template h6 {
+  opacity: 0.6;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.template h2 {
+  margin: 10px 0;
+}
+
+.course-preview {
+  padding: 30px;
+  background: #1b4079;
+  color: #fff;
+  max-width: 250px;
+}
+
+.course-preview a {
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.course-info {
+  padding: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.progress-container {
+  float: right;
+  width: 150px;
+  text-align: right;
+}
+
+.progress {
+  background-color: #ddd;
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+}
+
+.progress::after {
+  border-radius: 3px;
+  background-color: #1b4079;
+  content: "";
+  float: left;
+  width: 66%;
+  height: 5px;
+}
+
+.progress-text {
+  font-size: 10px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+.instructor-name {
+  font-size: 10px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+.course-card .ant-btn {
+  border: 0;
+  color: #fff;
+  position: relative;
+  float: right;
+  /* letter-spacing: 1px; */
+  transition: 0.2s linear;
+}
+
+
+/* enrolled courses cards */
+
+.enrolled-course-card {
+  width: 200px;
+  background: #fff;
+  display: block;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.21);
+  transition: all 0.15s;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.enrolled-course-card:hover {
+  background-color: #e6f7ff;
+}
+
+.enrolled-course-card-header {
+  position: absolute;
+  z-index: 2;
+  width: calc(100% - 8px);
+  display: flex;
+  margin: 8px auto;
+  color: #fff;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.85);
+}
+
+.enrolled-course-card-header i.material-icons {
+  transition: all 0.2s;
+}
+
+.enrolled-course-card-header i.material-icons:hover,
+.enrolled-course-card-header i.material-icons.active {
+  color: #f7ca18;
+}
+
+.enrolled-course-image {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  opacity: 0.9;
+  position: relative;
+}
+
+.dark {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.enrolled-course-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.enrolled-course-content {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 0;
+  color: #131119;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  border: 1px solid #686e76;
+  max-width: max-content;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.tag i.material-icons {
+  font-size: 16px;
+}
+
+.tag span {
+  margin-left: 8px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.card-content-header {
+  display: flex;
+  align-items: center;
+}
+
+.card-content-meta {
+  width: 100%;
+  display: flex;
+  margin-top: 8px;
+}
+
+.card-content-meta .category {
+  font-size: 12px;
+  background: #333;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+.card-content-meta .category.category--audio {
+  background: #9d8df1;
+}
+
+.card-content-description {
+  font-size: 14px;
+}
+
+.teacher-name {
+  margin-left: 8px;
+}
+
+.teacher-name .name {
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+.teacher-name .church {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.teacher-image {
+  width: 20%;
+  height: 0;
+  padding-bottom: 20%;
+  display: block;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.teacher-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.teacher-info {
+  display: flex;
+  align-items: center;
+}
+
+/* Activity list */
+.ant-card.tablespace .ant-card-body {
+  padding: 0px;
+}
+.tablespace .ant-card-head-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.ant-avatar-group .ant-avatar-square {
+  border-radius: 4px;
+  overflow-wrap: break-word;
+
+}
+.shape-avatar {
+  margin-right: 20px;
+}
+.avatar-info h5 {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+  margin-bottom: 3px;
+}
+
+.avatar-info p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #8c8c8c;
+  margin: 0px;
+}
+
+.ant-table-thead > tr > th {
+  color: #8c8c8c;
+  font-weight: 700;
+  background-color: transparent;
+  font-size: 12px;
+}
+
+.ant-border-space th:before {
+  display: none;
+}
+.ant-table-tbody > tr > td,
+.ant-table-thead > tr > th {
+  padding: 16px 25px;
+}
+.tablespace {
+  overflow: hidden;
+}
+.ant-table.ant-table-middle .ant-table-title,
+.ant-table.ant-table-middle .ant-table-footer,
+.ant-table.ant-table-middle .ant-table-thead > tr > th,
+.ant-table.ant-table-middle .ant-table-tbody > tr > td,
+.ant-table.ant-table-middle tfoot > tr > th,
+.ant-table.ant-table-middle tfoot > tr > td {
+  padding: 16px 25px;
+}
+.ant-table-tbody > tr > td h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #141414;
+  margin-bottom: 0px;
+}
+.ant-table-tbody > tr > td p {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin: 0px;
+}
+
+.tag-primary {
+  border-radius: 6px;
+  padding: 2px 12px;
+  font-size: 14px;
+  height: auto;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.ant-employed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  color: #8c8c8c;
+}
+
+.ant-employed a {
+  color: #8c8c8c;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.tag-badge {
+  border-radius: 6px;
+  padding: 2px 12px;
+  font-size: 14px;
+  height: auto;
+  line-height: 24px;
+  font-weight: 600;
+  background: #8c8c8c;
+  color: #fff;
+  outline: none;
+}
+
+.tag-badge:hover {
+  background: #8c8c8c;
+  color: #fff;
+  border-color: #8c8c8c;
+  opacity: 0.9;
+}
+
+/* assignment */
+.course-select {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.course-select .ant-select {
+  padding-bottom: 0;
+}
+.course-select .ant-select {
+  padding: 0;
+}
+
+.ant-radio-button-wrapper:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.ant-radio-button-wrapper:last-child {
+  border-radius: 0 4px 4px 0;
+}
+.ant-radio-group .ant-radio-button-wrapper {
+  font-weight: 600;
+  font-size: 12px;
+  height: 40px;
+  padding: 0 15px;
+  line-height: 40px;
+}
+
+/* interactive activity */
+.instruction {
+  display: flex;
+  align-items: center;
+}
+.instruction-list-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding-bottom: 8px;
+  animation: fadeIn cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* student assignment */
+.ant-full-box {
+  margin-top: 15px;
+  width: 100%;
+  border: 1px dashed #d9d9d9;
+  padding: 10px;
+  height: auto;
+  color: #141414;
+  border-radius: 10px;
+}
+.uploadfile .ant-upload.ant-upload-select {
+  display: block;
+}
+
+/* interactive page in student */
+.area {
+  z-index: -1;
+  background: #4e54c8;
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  width: 100%;
+  height: 100%;
+}
+
+.circles {
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+}
+
+.circles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
+  }
+
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+.interactive-card.data {
+  border-radius: 24px;
+  box-shadow: 0 25px 27px rgb(0 0 0 / 10%);
+}
+
+.h4.title {
+  color: #2f527b;
+  font-weight: 600;
+}
+.h1.bold,
+.h2.bold {
+  color: #fff;
+  font-weight: bold;
+}
+.dynamic {
+  height: 100%;
+}
+@media screen and (max-height: 500px) {
+  .dynamic {
+    height: auto;
+  }
+}
+
+.interactive-card {
+  background-color: #fff;
+}
+.interactive-card .choice-text {
+  text-align: start;
+}
+
+.interactive-card .choice-icon,
+.question-toggle-btn {
+  text-align: end;
+  padding-right: 0;
+}
+
+.ant-btn.choice-correct {
+  background-color: #60bf88;
+  border: 2px solid #60bf88;
+  color: white;
+}
+.ant-btn.choice-wrong {
+  background-color: #ea8282;
+  border: 2px solid #ea8282;
+  color: white;
+}
+.interactive-card .ant-btn-text:hover {
+  background-color: #f9a826;
+  border: 2px solid #f9a826;
+  color: white;
+}
+.image-type .choice-correct {
+  border-radius: 24px;
+  border: 10px solid #60bf88;
+  color: white;
+}
+.image-type .choice-wrong {
+  border-radius: 24px;
+  border: 10px solid #ea8282;
+  color: white;
+}
+.interactive-card .image-type-active :hover {
+  border: 10px solid #f9a826;
+  color: white;
+}
+
+.submission-files .ant-list-items .ant-card .ant-card-body {
+  padding: 10px !important;
+}
+
+.attachments .ant-upload {
+  width: 100%;
+}
+
+.timeout-background {
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/time-out-bg.gif") no-repeat center top;
+  background-size: 100%;
+  height: 93vh;
+}
+.selected-lesson {
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  font-weight: 600;
+  background-color: #e6f7ff;
+}
+.course-description {
+  background-color: #e6f7ff;
+  padding: 20px 20px 20px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.ant-layout-sider-children {
+  box-shadow: 0 20px 27px rgb(0 0 0 / 8%);
+}
+
+.attempQuestionCard .student-answer{
+  background-color: #e6f7ff;
+  padding: 20px 10px 10px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.attempQuestionCard .correct-answer{
+  background-color: #81eeae;
+  padding: 20px 10px 10px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.response-modal .ant-card-head{
+  overflow-wrap: break-word;
+  padding: 0 12px;
+  background-color: #e6f7ff;
+  border-radius: 10px 10px 0 0 ;
+}
+.response-modal .ant-card{
+  box-shadow: 0 20px 27px rgb(0 0 0 / 8%);
+  border-radius: 10px;
+}
+
+.recordings .ant-btn{
+  width: 48px;
+  height: 48px;
+}
+
+.interactive-end {
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/interactive-end.gif") no-repeat center top;
+  background-size: 100%;
+  height: 100vh;
+}
+
+.interactive-start {
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/interactive-start.gif") no-repeat center top;
+  background-size: 100%;
+  height: 100vh;
+}
+
+.interactive-ongoing {
+  background-color: #4e54c8;
+  background-size: 100%;
+}
+
+.start-header {
+  color: #fff;
+}
+
+.dashboard .ant-card .ant-list .ant-list-item:hover,
+.ant-table .ant-table-tbody .ant-table-cell-row-hover
+{
+  background-color: #e6f7ff!important;
+  cursor: pointer;
+}
+
+.dashboard .ant-card-body{
+  height: inherit;
+}
+
+.dashboard .more-button {
+  position: absolute;
+  margin-top: 24px;
+  bottom: 24px;
+  right: 24px;
+}
+.forgot-password-content{
+  width: 180vh !important;
+  height: 90vh !important;
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/forgot-password.jpg") !important;
+  background-size: cover !important;
+}
+
+.forgot-password-content-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.card-profile-head-forgot-password .ant-card-head {
+  padding: 0px 50px;
+  padding: 10px;
+    border: 1px solid   #5AA5FA;
+    box-shadow:  -1px 1px #5AA5FA,
+         -4px 4px #5AA5FA,
+         -5px 5px #5AA5FA,
+         -6px 6px #5AA5FA,
+         -7px 7px #5AA5FA;
+}
+
+/* .ant-avatar{
+  background-color: #40a9ff;
+} */
+
+.wiki .ant-upload{
+  width: -webkit-fill-available;
+}
+.course-enrollment-bg {
+  height: 200px;
+  border-radius: 12px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  background-image: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/course-enrollment-bg.gif");
+  background-size: cover;
+  background-position: 50%;
+}
+
+.course-enrollment-card .ant-card-head {
+  border-bottom: 0px;
+  padding: 0px 16px;
+}
+
+.course-enrollment-card {
+  border-radius: 8px;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  margin: -53px 0 24px;
+  margin: -53px 24px 24px;
+}
+
+.welcome-screen{
+  background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/welcome-screen.gif") no-repeat center top;
+  background-size: 100%;
+  height: 93vh;
+}
