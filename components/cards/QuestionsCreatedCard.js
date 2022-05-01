@@ -27,9 +27,6 @@ const QuestionsCreatedCard = ({
 
     const router = useRouter();
     const editPageHandleDelete = async(quizId, question, index) => {
-        console.log('initialQuestions',initialQuestions)
-        console.log('question',question)
-        console.log('initialQuestions.includes(question)',initialQuestions.includes(question))
         if(initialQuestions.includes(question)){
             try {
                 const { deletedQuiz } = await axios.put(`/api/quiz/delete-question/${quizId}/${question._id}`);
@@ -99,7 +96,7 @@ const QuestionsCreatedCard = ({
                                 >
                                     <Descriptions>
                                         <Descriptions.Item label="Answer/s" span={3}>
-                                            {q.options.map((options, index) => (
+                                            {q.options?.map((options, index) => (
                                                 <div key={index}>
                                                     {options.isCorrect &&
                                                         <div>

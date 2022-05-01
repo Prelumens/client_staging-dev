@@ -61,6 +61,7 @@ const AssignmentCreate = () => {
             setDeadline(data.assignment.deadline)
             setAssignCourse(data.assignment.course._id)
             setFiles(data.assignment.attachment)
+            console.log('Attachments => ',data.assignment.attachment)
         }
     };
 
@@ -149,6 +150,8 @@ const AssignmentCreate = () => {
         message.error('Please add deadline.')
         fail = true
       }
+      console.log('files',files)
+      console.log('newFiles',newFiles)
       if(!fail){
         try {
             const { data } = await axios.put(`/api/assignment/${slug}`, {
