@@ -35,6 +35,7 @@ const QuizEdit = ({
     const [quiz, setQuiz] = useState({});
     const [questionArray, setQuestionArray] = useState([])
     const [initialQuestions, setInitialQuestions] = useState([])
+    const [newQuestions, setNewQuestions] = useState([])
     const [assignCourse, setAssignCourse] = useState('')
     const [title, setTitle] = useState('')
     const [deadline, setDeadline] = useState('')
@@ -45,9 +46,11 @@ const QuizEdit = ({
     //add the questions to the array
     const addQuestionHandle = (title, optionType, options, correctAnswer,image) => {
 		const arr = [...questionArray]
+		const arrNew = [...newQuestions]
 		arr.push({ title, optionType, options, correctAnswer,image })
+		arrNew.push({ title, optionType, options, correctAnswer,image })
 		setQuestionArray(arr)
-        console.log("Q arr", questionArray)
+        setNewQuestions(arrNew)
 	}
 
     useEffect(() => {
@@ -117,6 +120,7 @@ const QuizEdit = ({
                 try {
                     const { data } = await axios.put(`/api/quiz/edit/${slug}`, {
                         questions: questionArray,
+                        newQuestions,
                         title,
                         access,
                         deadline,
@@ -133,15 +137,22 @@ const QuizEdit = ({
         }
     }
     const editQuestionHandle = async (title, optionType, options, correctAnswer,image) => {
-        console.log('editQuestionHandle')
         const temp = [...questionArray];
-        temp[questionIndex] = { title, optionType, options, correctAnswer,image };
-        setQuestionArray(temp);
-        if(activeQuestion.length > 0){
+        temp[questionIndex] = {
+            title: title,
+            optionType: optionType,
+            options: options,
+            correctAnswer: correctAnswer,
+            image: image
+        };
+        setQuestionArray(temp)
+        console.log('temp', temp)
+        if(initialQuestions.includes(activeQuestion) && activeQuestion){
             const { data } = await axios.put(
-                `/api/quiz/edit-question/${quiz._id}/${activeQuestion}`,{
-                    title, optionType, options, correctAnswer,image
+                `/api/quiz/edit-question/${quiz._id}/${activeQuestion._id}`,{
+                    title, optionType, options, correctAnswer,image,
                 });
+                console.log('data',data)
         }
         toast("Question Updated!");
         setQuestionIndex(null)
@@ -270,6 +281,7 @@ const QuizEdit = ({
                             addQuestionHandle={addQuestionHandle}
                             editQuestionHandle={editQuestionHandle}
                             questionArray={questionArray}
+                            setActiveQuestion={setActiveQuestion}
                         />
             </div>
         </InstructorRoute>
