@@ -166,6 +166,7 @@ const AssignmentCreate = () => {
             toast("Assignment Updated!");
             router.push("/instructor/list-activity");
         } catch (err) {
+            toast.error(err.response.data)
             console.log(err);
         }
       }

@@ -132,13 +132,14 @@ const AssignmentCreate = () => {
             });
             toast("Assignment created!");
             router.push("/instructor/list-activity");
+          } else {
+            toast.error("File too large. Please try again.");
           }
 
         } catch (err) {
+          toast.error(err.response.data)
           console.log(err);
         }
-      } else {
-        toast.error("File too large. Please try again.");
       }
     }
   }

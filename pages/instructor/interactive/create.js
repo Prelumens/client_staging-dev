@@ -30,7 +30,6 @@ import {
 } from "@ant-design/icons";
 
 const InteractiveCreate = () => {
-  const editQuestion = false;
   const { TextArea } = Input;
   const { Option } = Select;
   const [assignCourse, setAssignCourse] = useState('')
@@ -44,6 +43,9 @@ const InteractiveCreate = () => {
   const [visible, setVisible] = useState(false);
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false)
+  const [questionIndex, setQuestionIndex] = useState(null);
+  const [activeQuestion, setActiveQuestion] = useState({});
+  const [editQuestion, setEditQuestion] = useState(false)
   // router
   const router = useRouter();
   useEffect(() => {
@@ -70,6 +72,15 @@ const InteractiveCreate = () => {
     console.log(arr);
   }
 
+  const editQuestionHandle = async (titleField, type, choices,correctAnswer) => {
+    const temp = [...questionArray];
+    temp[questionIndex] = {titleField, type, choices,correctAnswer};
+    setQuestionArray(temp)
+    console.log('temp', temp)
+    toast("Question Updated!");
+    setQuestionIndex(null)
+    // window.location.reload(false);
+  };
   const handleCreate = async () => {
     setLoading(true)
     let fail = false;
@@ -252,10 +263,13 @@ const InteractiveCreate = () => {
               >
                 {questionArray.length > 0 ?
                   < ActivityQuestions
-                    editQuestion={true}
+                    setQuestionIndex={setQuestionIndex}
+                    editQuestion = {editQuestion}
+                    setEditQuestion={setEditQuestion}
+                    setActiveQuestion={setActiveQuestion}
                     setVisible={setVisible}
-                    setQuestionArray={setQuestionArray}
-                    questionArray={questionArray}
+                    setQuestionArray = {setQuestionArray}
+                    questionArray = {questionArray}
                   />
                   :
                   <>
@@ -289,23 +303,17 @@ const InteractiveCreate = () => {
         >
           {loading ? "Saving..." : "Add Activity"}
         </Button>
-        <Modal
-          title="+ Add Question"
-          centered
-          visible={visible}
-          onCancel={() => setVisible(false)}
-          footer={null}
-          width={750}
-        >
           <InteractiveActivityForm
-            editQuestion={editQuestion}
+            setActiveQuestion={setActiveQuestion}
+            question={activeQuestion}
+            editQuestion = {editQuestion}
+            setEditQuestion={setEditQuestion}
             visible={visible}
             setVisible={setVisible}
             addQuestionHandle={addQuestionHandle}
+            editQuestionHandle={editQuestionHandle}
             questionArray={questionArray}
           />
-
-        </Modal>
       </div>
     </InstructorRoute>
   );
