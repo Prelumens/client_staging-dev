@@ -220,17 +220,7 @@ const QuizCreate = ({
                 setEditQuestion={setEditQuestion}
                 />
             </div>
-            <Button
-              loading={loading}
-                onClick={() => {handleQuizCreate()}}
-                className="text-center float-right mb-4"
-                type="primary"
-                shape="round"
-                icon={<PlusOutlined />}
-                size="large"
-            >
-                {loading ? "Saving..." : "Create Quiz"}
-            </Button>
+
             <AddQuestionForm
               editPage={false}
               setEditQuestion={setEditQuestion}
@@ -242,6 +232,22 @@ const QuizCreate = ({
               editQuestion={editQuestion}
               questionArray={questionArray}
             />
+
+            <Row>
+              <Col span={24} style={{textAlignLast: 'right'}}>
+                <Button
+                  loading={loading}
+                    onClick={() => {handleQuizCreate()}}
+                    className="text-center mb-4"
+                    type="primary"
+                    shape="round"
+                    icon={<PlusOutlined />}
+                    size="large"
+                >
+                    {loading ? "Saving..." : "Create Quiz"}
+                </Button>
+              </Col>
+            </Row>
           </div>
       </InstructorRoute>
     );

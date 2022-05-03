@@ -80,7 +80,7 @@ const QuizSummary = (
                         >
                             <Space direction="vertical" align="center">
                             <p>SCORE</p>
-                            <span>{result.grade} / {questionArray.length} </span>
+                            <span>{Number(result.grade)} / {questionArray.length} </span>
                             </Space>
                         </Col>
                     </Row>

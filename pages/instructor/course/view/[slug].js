@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import axios from "axios";
-import { Avatar, Tooltip, Button, Modal, List, Row, Col, Card, Badge, Drawer, message, Skeleton } from "antd";
+import { Avatar, Tooltip, Button, Modal, List, Row, Col, Card, Badge, Drawer, message, Skeleton, Divider, Tag } from "antd";
 import {
     EditOutlined,
     CheckOutlined,
@@ -91,7 +91,7 @@ const CourseView = () => {
     };
     const loadCourse = async () => {
         const { data } = await axios.get(`/api/course/${slug}`);
-        console.log(data.course.lessons.length)
+        console.log(data.course)
         setCourse(data.course);
         setLessons(data.course.lessons)
         setTodos([...data.activities].sort((a, b) => a - b).reverse())
@@ -217,12 +217,10 @@ const CourseView = () => {
 
     const handlePublish = async (e, courseId) => {
         try {
-            // let answer = window.confirm('Are you sure you want to publish this course?')
-            // // if (!answer) return;
             const publish = async () => {
                 const { data } = await axios.put(`/api/course/publish/${courseId}`)
                 setCourse(data)
-                toast('Course published')
+                toast('Course published successfully!')
                 window.location.reload()
             }
             if (courseId) {
@@ -243,7 +241,7 @@ const CourseView = () => {
             const unpublish = async () => {
                 const { data } = await axios.put(`/api/course/unpublish/${courseId}`)
                 setCourse(data)
-                toast('Course Unpublished')
+                toast('Course unpublished successfully!')
                 window.location.reload();
             }
             if (courseId) {
@@ -280,7 +278,6 @@ const CourseView = () => {
         try {
             const { data } = await axios.get(`/api/instructor/course/student-enrollment-status-list/${course._id}`)
             setStudentList(data)
-            console.log("STUDENT LIST => ", data)
         } catch (err) {
             console.log(err)
         }
@@ -302,7 +299,6 @@ const CourseView = () => {
                     folder: 'course/lesson'
                 });
             toast("Files uploaded successfully!")
-            console.log('data', data)
             setUploaded(data)
         } catch (error) {
             console.log(error)
@@ -310,10 +306,6 @@ const CourseView = () => {
     };
     //View Page action
     const onView = (activity) => {
-        console.log(activity)
-        console.log('quiz', quiz.includes(activity))
-        console.log('assignment', assignment.includes(activity))
-        console.log('interactive', interactive.includes(activity))
         let quizType = quiz.filter((item) => {
             return item._id === activity._id
         })
@@ -349,10 +341,12 @@ const CourseView = () => {
                                             <h5 className="mt-2 text-primary">{course.name}</h5>
                                             <p style={{ marginTop: "-10px" }}>
                                                 {course.lessons && course.lessons.length} Lessons
-                                            </p>
-                                            <p style={{ marginTop: "-15px", fontSize: "10px" }}>
+                                                <Divider type="vertical" />
                                                 {course.category}
                                             </p>
+                                            <div style={{ marginTop: "-10px" }}>
+                                                {course.published ? <Tag color="processing">PUBLISHED</Tag> : <Tag color="default">UNPUBLISHED</Tag>}
+                                            </div>
                                         </div>
 
                                         <div className="d-flex pt-4">
@@ -573,7 +567,7 @@ const CourseView = () => {
                                         bodyStyle={{ paddingTop: 0 }}
                                         className="header-solid h-full  ant-list-yes"
                                         title={<h6 className="font-semibold m-0">Activities</h6>}
-                                        extra={<a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
+                                        extra={listLoad.length <= 3 && <a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
                                     >
                                         <List
                                             loading={loading}

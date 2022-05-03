@@ -61,21 +61,29 @@ const InteractiveAdminView = () => {
                     className="site-page-header-responsive gradient-banner text-white"
                     onBack={() => window.history.back()}
                     title={interactive.title}
-                    subTitle={
-                        <> Due on {moment(interactive.deadline).format("MMMM Do YYYY, LT")} </>
+                    subTitle={ interactive.access ?
+                        <Tag color="#3b5999">
+                            POSTED
+                        </Tag>
+                        :
+                        <Tag color="#cd201f">
+                            HIDDEN
+                        </Tag>
                     }
                     extra={
                         <Statistic title="Responses" value={responses.length} prefix={<LikeOutlined />} />
                     }
                 >
-                    <p>{interactive.description}</p>
+                    <p className="m-0 font-italic" style={{color:'#f0eff3'}} > Due on {moment(interactive.deadline).format("MMMM Do YYYY, LT")} </p>
+                    <p className="mt-2">{interactive.description}</p>
                     <Divider style={{ backgroundColor: '#fff' }} />
+                    <h6>Instructions:</h6>
                     {instructionSet.map((item, index) => (
                         <div className="instruction-list-item" key={index}>
-                        <Space>
-                            <Avatar size="small" >{index+1}</Avatar>
-                            <li key={item}>{item}</li>
-                        </Space>
+                            <Space>
+                                <Avatar size="small" >{index + 1}</Avatar>
+                                <li key={item}>{item}</li>
+                            </Space>
                         </div>
                     ))}
                 </PageHeader>

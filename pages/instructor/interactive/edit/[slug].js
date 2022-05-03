@@ -281,7 +281,7 @@ const InteractiveEdit = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs="24" xl={24}>
+            <Col span={24}>
               <Card
                 bordered={false}
                 className="circlebox mb-24"
@@ -309,17 +309,22 @@ const InteractiveEdit = () => {
             </Col>
           </Row>
         </div>
-        <Button
-          loading={loading}
-          onClick={() => {handleUpdate()}}
-          className="text-center float-right mb-4"
-          type="primary"
-          shape="round"
-          icon={<PlusOutlined />}
-          size="large"
-        >
-          {loading ? "Saving..." : "Update Activity"}
-        </Button>
+        <Row>
+          <Col span={24} style={{textAlignLast: 'right'}}>
+            <Button
+              loading={loading}
+              onClick={() => {handleUpdate()}}
+              className="text-center mb-4"
+              type="primary"
+              shape="round"
+              icon={<PlusOutlined />}
+              size="large"
+            >
+              {loading ? "Saving..." : "Update Activity"}
+            </Button>
+          </Col>
+        </Row>
+
         <InteractiveActivityForm
           setActiveQuestion={setActiveQuestion}
           question={activeQuestion}

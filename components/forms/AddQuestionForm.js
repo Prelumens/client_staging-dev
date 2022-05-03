@@ -343,7 +343,7 @@ const AddQuestionForm = ({
 												{option.image?.Location ?
 													<Avatar size={64} shape="square" src={option.image.Location}/>
 												:''}
-												<p className='add-op'>{!option.text?.includes('prelms-bucket') ? option.text : ''}</p>
+												<p className='add-op'>{!option.text?.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}</p>
 											</Space>
 										)}
 									</Col>

@@ -263,7 +263,7 @@ const ListQuiz = () => {
                                                 />
                                                 {item.grade && item.return ? (<Space align="baseline">
                                                     <h5 className="text-success">
-                                                        {item.grade}
+                                                        {Number(item.grade)}
                                                     </h5>
                                                     <small className="text-muted">points</small>
                                                 </Space>)

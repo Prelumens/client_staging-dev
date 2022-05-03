@@ -244,18 +244,22 @@ const AssignmentCreate = () => {
                     </Space>
                   </Col>
                 </Row>
-                <Button
-                  loading={loading}
-                  onClick={() => {handleCreate()}}
-                  className="text-center float-right"
-                  type="primary"
-                  shape="round"
-                  icon={<PlusOutlined />}
-                  size="large"
-                >
-                  {loading ? "Saving..." : "Add Assignment"}
-                </Button>
               </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} style={{textAlignLast: 'right'}}>
+              <Button
+                loading={loading}
+                onClick={() => {handleCreate()}}
+                className="text-center"
+                type="primary"
+                shape="round"
+                icon={<PlusOutlined />}
+                size="large"
+              >
+                {loading ? "Saving..." : "Add Assignment"}
+              </Button>
             </Col>
           </Row>
         </div>

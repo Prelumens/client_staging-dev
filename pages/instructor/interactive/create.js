@@ -125,7 +125,7 @@ const InteractiveCreate = () => {
             description,
             instructionSet
           });
-          toast("Activity updated!");
+          toast("Activity created successfuly!");
           router.push("/instructor/list-activity");
 
         } catch (err) {
@@ -246,7 +246,7 @@ const InteractiveCreate = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs="24" xl={24}>
+            <Col span={24}>
               <Card
                 bordered={false}
                 className="circlebox mb-24"
@@ -292,17 +292,21 @@ const InteractiveCreate = () => {
             </Col>
           </Row>
         </div>
-        <Button
-          onClick={() => { handleCreate() }}
-          loading={loading}
-          className="text-center float-right mb-4"
-          type="primary"
-          shape="round"
-          icon={<PlusOutlined />}
-          size="large"
-        >
-          {loading ? "Saving..." : "Add Activity"}
-        </Button>
+        <Row>
+          <Col span={24} style={{textAlignLast: 'right'}}>
+            <Button
+              onClick={() => { handleCreate() }}
+              loading={loading}
+              className="text-centert mb-4"
+              type="primary"
+              shape="round"
+              icon={<PlusOutlined />}
+              size="large"
+            >
+              {loading ? "Saving..." : "Add Activity"}
+            </Button>
+          </Col>
+        </Row>
           <InteractiveActivityForm
             setActiveQuestion={setActiveQuestion}
             question={activeQuestion}
