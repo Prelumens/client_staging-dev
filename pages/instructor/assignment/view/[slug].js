@@ -180,6 +180,7 @@ const AssignmentView = () => {
                                                             </Space>
                                                         }
                                                     />
+                                                    {item.return && <Tag color="geekblue">RETURNED</Tag>}
                                                 </List.Item>
                                             </a>
 
@@ -200,7 +201,7 @@ const AssignmentView = () => {
                                                 <Row>
                                                     <Col span={17}>
                                                         <Space align="center">
-                                                            <Avatar size={40} src={item.student?.picture ? item.student?.picture?.Location : 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true'} />
+                                                            <Avatar size={40} src={item.student?.picture ? item.student?.picture?.Location || item.student?.picture : 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true'} />
                                                             <div>
                                                                 <Title level={5} className="m-0">{item.student?.name}</Title>
                                                                 <small className="text-muted">{item.student?.username}</small>
@@ -209,6 +210,7 @@ const AssignmentView = () => {
                                                                 <Tag color="error">LATE</Tag>
                                                             }
                                                         </Space>
+
                                                     </Col>
                                                     <Col span={7}>
                                                         {markMode ? (
@@ -239,7 +241,15 @@ const AssignmentView = () => {
                                                 <Divider />
 
 
-                                                <h6>Files Submitted</h6>
+                                                <Row className="mb-2">
+                                                    <Col span={16}>
+                                                        <h6>Files Submitted</h6>
+                                                    </Col>
+                                                    <Col span={8} style={{textAlignLast:'end'}}>
+                                                        {item.return && <Tag color="geekblue">RETURNED</Tag>}
+                                                    </Col>
+
+                                                </Row>
                                                 <List
                                                     className="submission-files"
                                                     itemLayout="horizontal"

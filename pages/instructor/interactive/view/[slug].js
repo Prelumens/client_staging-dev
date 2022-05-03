@@ -72,8 +72,7 @@ const InteractiveView = () => {
                             <Tag color="#cd201f">
                                 HIDDEN
                             </Tag>
-
-                    }
+                        }
                         extra={
                             <Statistic title="Responses" value={responses.length} prefix={<LikeOutlined />} />
                         }

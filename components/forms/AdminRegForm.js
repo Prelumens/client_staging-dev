@@ -88,7 +88,11 @@ const AdminRegForm = ({
                     (<div className="form-row">
                         <div className="col">
                             <div className="form-group text-center">
-                                <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas">
+                                <label
+                                    htmlFor="photo-upload"
+                                    className="btn btn-primary btn-sm text-left custom-file-upload fas"
+                                    style={{border: '50%', padding: '6px'}}
+                                >
                                     <div className="img-wrap img-upload" >
                                         <img for="photo-upload" src='https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true' />
                                     </div>
@@ -111,7 +115,7 @@ const AdminRegForm = ({
                                 <div className="form-row">
                                     <div className="col">
                                         <div className="form-group text-center">
-                                            <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas">
+                                            <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas" style={{border: '50%', padding: '6px'}}>
                                                 <div className="img-wrap img-upload" >
                                                     <Avatar size={100} src={preview} />
                                                 </div>

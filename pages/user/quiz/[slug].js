@@ -203,11 +203,11 @@ const SingleQuiz = (
                                                             <label className="options">
                                                                 {option.text.length !== 0 && !option.image?.Location ?
                                                                 <p>
-                                                                    {!option.text.includes('prelms-bucket') ? option.text : ''}
+                                                                    {!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}
                                                                 </p>
                                                                 : option.text.length !== 0 ||  option.image.Location ?
                                                                     <div>
-                                                                        <p>{!option.text.includes('prelms-bucket') ? option.text : ''}</p>
+                                                                        <p>{!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}</p>
                                                                         <Image width={200} src={option.image.Location}/>
                                                                     </div>
                                                                 :''
@@ -226,11 +226,11 @@ const SingleQuiz = (
                                                             <label className="options">
                                                                 {option.text.length !== 0 && !option.image?.Location ?
                                                                 <p>
-                                                                    {!option.text.includes('prelms-bucket') ? option.text : ''}
+                                                                    {!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}
                                                                 </p>
                                                                 : option.text.length !== 0 ||  option.image.Location ?
                                                                     <div>
-                                                                        <p>{!option.text.includes('prelms-bucket') ? option.text : ''}</p>
+                                                                        <p>{!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}</p>
                                                                         <Image width={200} src={option.image.Location}/>
                                                                     </div>
                                                                 :''

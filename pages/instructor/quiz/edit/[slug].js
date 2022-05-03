@@ -46,11 +46,11 @@ const QuizEdit = ({
     //add the questions to the array
     const addQuestionHandle = (title, optionType, options, correctAnswer,image) => {
 		const arr = [...questionArray]
-		const arrNew = [...newQuestions]
+		// const arrNew = [...newQuestions]
 		arr.push({ title, optionType, options, correctAnswer,image })
-		arrNew.push({ title, optionType, options, correctAnswer,image })
+		// arrNew.push({ title, optionType, options, correctAnswer,image })
 		setQuestionArray(arr)
-        setNewQuestions(arrNew)
+        // setNewQuestions(arrNew)
 	}
 
     useEffect(() => {
@@ -88,6 +88,10 @@ const QuizEdit = ({
     };
 
     const handleQuizEdit = async () => {
+        const newQuestionsFilter = questionArray.filter((item) => {
+            return !initialQuestions.includes(item)
+        })
+        setNewQuestions(newQuestionsFilter)
         setLoading(true)
         let fail=false;
         message
@@ -146,7 +150,6 @@ const QuizEdit = ({
             image: image
         };
         setQuestionArray(temp)
-        console.log('temp', temp)
         if(initialQuestions.includes(activeQuestion) && activeQuestion){
             const { data } = await axios.put(
                 `/api/quiz/edit-question/${quiz._id}/${activeQuestion._id}`,{
@@ -182,6 +185,17 @@ const QuizEdit = ({
                     <Switch className="ml-2" checkedChildren="Posted" unCheckedChildren="Hidden" onChange={(e) => setAccesss(true)} />
                 )
                 }
+                extra={
+                    <Button
+                        onClick={() => setVisible(true)}
+                        className="ml-4 text-center"
+                        type="secondary"
+                        shape="round"
+                        size="large"
+                    >
+                        Add Question
+                    </Button>
+                  }
             >
             </PageHeader>
             <Row>
@@ -236,17 +250,6 @@ const QuizEdit = ({
                     </Card>
                 </Col>
                 </Row>
-            <div className="text-right mt-2">
-                <Button
-                    onClick={() => setVisible(true)}
-                    className="ml-4 text-center"
-                    type="primary"
-                    shape="round"
-                    size="large"
-                >
-                    Add Question
-                </Button>
-            </div>
                     <div className="created-questions">
                         <QuestionsCreatedCard
                             questionArray={questionArray}
@@ -260,17 +263,6 @@ const QuizEdit = ({
                             initialQuestions={initialQuestions}
                         />
                     </div>
-                    <Button
-                        loading={loading}
-                        onClick={() => {handleQuizEdit()}}
-                        className="text-center float-right mb-3"
-                        type="primary"
-                        shape="round"
-                        icon={<PlusOutlined />}
-                        size="large"
-                    >
-                        {loading ? "Saving..." : "Update Quiz"}
-                    </Button>
                         <AddQuestionForm
                             editPage={true}
                             setEditQuestion={setEditQuestion}
@@ -283,6 +275,21 @@ const QuizEdit = ({
                             questionArray={questionArray}
                             setActiveQuestion={setActiveQuestion}
                         />
+                    <Row>
+                        <Col span={24} style={{textAlignLast: 'right'}}>
+                            <Button
+                                loading={loading}
+                                onClick={() => {handleQuizEdit()}}
+                                className="text-center mb-3"
+                                type="primary"
+                                shape="round"
+                                icon={<PlusOutlined />}
+                                size="large"
+                            >
+                                {loading ? "Saving..." : "Update Quiz"}
+                            </Button>
+                        </Col>
+                    </Row>
             </div>
         </InstructorRoute>
     );

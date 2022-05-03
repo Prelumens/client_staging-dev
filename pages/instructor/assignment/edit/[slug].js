@@ -166,6 +166,7 @@ const AssignmentCreate = () => {
             toast("Assignment Updated!");
             router.push("/instructor/list-activity");
         } catch (err) {
+            toast.error(err.response.data)
             console.log(err);
         }
       }
@@ -306,18 +307,22 @@ const AssignmentCreate = () => {
                 </Col>
               </Row>
             </Card>
-        <Button
-          loading={loading}
-          onClick={() => {handleUpdate()}}
-          className="text-center float-right mb-4"
-          type="primary"
-          shape="round"
-          icon={<PlusOutlined />}
-          size="large"
-        >
-          {loading ? "Saving..." : "Update Assignment"}
-        </Button>
-      </div>
+            <Row>
+              <Col span={24} style={{textAlignLast: 'right'}}>
+                <Button
+                  loading={loading}
+                  onClick={() => {handleUpdate()}}
+                  className="text-center mb-4"
+                  type="primary"
+                  shape="round"
+                  icon={<PlusOutlined />}
+                  size="large"
+                >
+                  {loading ? "Saving..." : "Update Assignment"}
+                </Button>
+              </Col>
+            </Row>
+        </div>
       </div>
     </InstructorRoute>
   );

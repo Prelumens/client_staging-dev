@@ -156,6 +156,7 @@ const SingleCourse = () => {
     <StudentRoute>
       <Layout>
         <Sider
+          theme='light'
           breakpoint="lg"
           // collapsible = {true}
           collapsedWidth="0"
@@ -165,7 +166,6 @@ const SingleCourse = () => {
           onCollapse={(collapsed, type) => {
             // console.log(collapsed, type);
           }}
-          className="site-layout-background "
         >
           <Timeline className="pl-4 pt-4">
             <h5 className="text-center">LESSONS</h5>
@@ -208,8 +208,9 @@ const SingleCourse = () => {
         </Sider>
         <Layout>
           <Content>
-            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+            <div className="content" style={{ padding: 24, minHeight: '100vh' }}>
               <PageHeader
+                ghost={false}
                 className="site-page-header containers-shadowed"
                 title={course.name}
                 tags={<Tag color="blue">{course.category}</Tag>}
@@ -225,7 +226,7 @@ const SingleCourse = () => {
               </PageHeader>
               {clicked !== -1 ? (
                 <>
-                  <div className="containers-shadowed p-3">
+                  <Card className="containers-shadowed p-3">
                     <div className="col alert alert-primary square">
                       <b>{course.lessons[clicked].title.substring(0, 30)}</b>
                       {completedLessons.includes(course.lessons[clicked]._id) ? (
@@ -293,7 +294,7 @@ const SingleCourse = () => {
                       </Row>
 
                     }
-                  </div>
+                  </Card>
                 </>
               ) : (
                 <div className="d-flex justify-content-center p-5">

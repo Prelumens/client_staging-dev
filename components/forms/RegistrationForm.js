@@ -102,7 +102,11 @@ const userRegistrationForm = ({
                         (<div className="form-row">
                             <div className="col">
                                 <div className="form-group text-center">
-                                    <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas">
+                                    <label
+                                        htmlFor="photo-upload"
+                                        className="btn btn-primary btn-sm text-left custom-file-upload fas"
+                                        style={{border: '50%', padding: '6px'}}
+                                    >
                                         <div className="img-wrap img-upload" >
                                             <img for="photo-upload" src='https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true' />
                                         </div>
@@ -125,7 +129,7 @@ const userRegistrationForm = ({
                                     <div className="form-row">
                                         <div className="col">
                                             <div className="form-group text-center">
-                                                <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas">
+                                                <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas" style={{border: '50%', padding: '6px'}}>
                                                     <div className="img-wrap img-upload" >
                                                         <Avatar size={100} src={preview} />
                                                     </div>
@@ -233,7 +237,7 @@ const userRegistrationForm = ({
                         <Divider orientation="left">Student Data</Divider>
                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                             <Col className="gutter-row" span={8}>
-                                <Form.Item name="level" label="LEVEL" rules={[{ required: true }]}>
+                                <Form.Item name="level" label="Level" rules={[{ required: true }]}>
                                     <Select span={12} placeholder="Select level" onChange={(value) => { setValues({ ...values, level: value }) }} defaultValue={values.level}>
                                         <Option value="Kindergarten">Kindergarten</Option>
                                         <Option value="Nursery">Nursery</Option>
