@@ -123,7 +123,7 @@ const CourseView = () => {
     const handleAddLesson = async (e) => {
         e.preventDefault();
         let fail = false;
-        if(fileList.length > 0 && uploaded.length === 0){
+        if (fileList.length > 0 && uploaded.length === 0) {
             message.error("Please upload the attached files.")
             fail = true;
         }
@@ -137,7 +137,7 @@ const CourseView = () => {
         }
         if (!fail) {
             try {
-                let tempWiki =[]
+                let tempWiki = []
                 const { data } = await axios.post(
                     `/api/course/lesson/${slug}/${course.instructor._id}`,
                     {
@@ -221,7 +221,7 @@ const CourseView = () => {
                 const { data } = await axios.put(`/api/course/publish/${courseId}`)
                 setCourse(data)
                 toast('Course published successfully!')
-                window.location.reload()
+                // window.location.reload()
             }
             if (courseId) {
                 Modal.confirm({
@@ -242,7 +242,7 @@ const CourseView = () => {
                 const { data } = await axios.put(`/api/course/unpublish/${courseId}`)
                 setCourse(data)
                 toast('Course unpublished successfully!')
-                window.location.reload();
+                // window.location.reload();
             }
             if (courseId) {
                 Modal.confirm({

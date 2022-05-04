@@ -71,25 +71,25 @@ const CourseView = () => {
 
     useEffect(() => {
         const fetchActivities = async () => {
-          const { data } = await axios.get('/api/activities');
-          var assignmentsToDisplay = data.assignments.filter(assignment => {
-            return assignment.instructor !== null;
-          });
+            const { data } = await axios.get('/api/activities');
+            var assignmentsToDisplay = data.assignments.filter(assignment => {
+                return assignment.instructor !== null;
+            });
 
-          var interactivesToDisplay = data.interactives.filter(interactive => {
-            return interactive.instructor !== null;
-          });
+            var interactivesToDisplay = data.interactives.filter(interactive => {
+                return interactive.instructor !== null;
+            });
 
-          var quizzesToDisplay = data.quizzes.filter(quiz => {
-            return quiz.instructor !== null;
-          });
+            var quizzesToDisplay = data.quizzes.filter(quiz => {
+                return quiz.instructor !== null;
+            });
 
-          setQuiz(quizzesToDisplay)
-          setAssignment(assignmentsToDisplay);
-          setInteractive(interactivesToDisplay)
+            setQuiz(quizzesToDisplay)
+            setAssignment(assignmentsToDisplay);
+            setInteractive(interactivesToDisplay)
         }
         fetchActivities()
-      }, [])
+    }, [])
 
     const loadCourse = async () => {
         const { data } = await axios.get(`/api/course/${slug}`);
@@ -110,7 +110,7 @@ const CourseView = () => {
 
     //View Page action
     const onView = (record) => {
-        console.log('record',record)
+        console.log('record', record)
         let quizType = quiz.filter((item) => {
             return item._id === record._id
         })
@@ -120,7 +120,7 @@ const CourseView = () => {
         let interactiveType = interactive.filter((item) => {
             return item._id === record._id
         })
-        console.log('interactiveType',interactiveType)
+        console.log('interactiveType', interactiveType)
 
         if (quizType.length > 0) {
             router.push(`/admin/manage-activities/quiz/${record.slug}`)
@@ -156,7 +156,7 @@ const CourseView = () => {
                 const { data } = await axios.put(`/api/admin/course/unpublish/${courseId}`)
                 setCourse(data)
                 toast('Course unpublished successfully!')
-                window.location.reload();
+                // window.location.reload();
             }
             if (courseId) {
                 Modal.confirm({
@@ -321,14 +321,14 @@ const CourseView = () => {
                                             className="header-solid h-full  ant-list-yes"
                                             title={<h6 className="font-semibold m-0">Activities</h6>}
                                             extra={listLoad.length <= 3 && <a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
-                                            >
+                                        >
                                             <List
                                                 loading={loading}
                                                 itemLayout="horizontal"
                                                 dataSource={listLoad}
                                                 renderItem={(item, index) => (
                                                     <a
-                                                        onClick={()=>onView(item)}
+                                                        onClick={() => onView(item)}
                                                     >
                                                         <List.Item>
                                                             <List.Item.Meta
