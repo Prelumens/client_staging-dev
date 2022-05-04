@@ -67,13 +67,13 @@ const EditProfileForm = ({
 
     useEffect(() => {
         form.setFieldsValue({
-            Name:name,
-            username:username,
-            Guardian:guardian,
-            Address:address,
-            Contact:contact,
-            Email:email,
-            Password:password,
+            Name: name,
+            username: username,
+            Guardian: guardian,
+            Address: address,
+            Contact: contact,
+            Email: email,
+            Password: password,
 
         })
     }, []);
@@ -95,7 +95,7 @@ const EditProfileForm = ({
 
                         {/* guardian */}
 
-                        {isAdmin &&
+                        {isAdmin && name && username &&
                             <>
                                 <Form.Item
                                     name="Name"
@@ -139,7 +139,7 @@ const EditProfileForm = ({
                             </>
                         }
 
-                        {isInstructor == false && isAdmin == false &&
+                        {isInstructor == false && isAdmin == false && guardian &&
                             <Form.Item
                                 name="Guardian"
                                 className="mt-0"
@@ -164,7 +164,7 @@ const EditProfileForm = ({
                         }
 
                         {/* address */}
-                        {isAdmin == false &&
+                        {isAdmin == false && address &&
                             <Form.Item
                                 name="Address"
                                 rules={[{ required: true }]}
@@ -186,7 +186,7 @@ const EditProfileForm = ({
                         }
 
                         {/* contact number */}
-                        {isAdmin == false &&
+                        {isAdmin == false && contact &&
                             <Form.Item
                                 name="Contact"
                                 className="mt-0"
@@ -211,50 +211,56 @@ const EditProfileForm = ({
 
 
                         {/* email */}
-                        <Form.Item
-                            name="Email"
-                            className="mt-0"
-                            rules={[{ required: true }, { type: 'email' }]}
-                        >
-                            <Input
-                                prefix={
-                                    <Tooltip title="Email">
-                                        <MailOutlined className="mr-2" />
-                                    </Tooltip>
-                                }
+                        {email &&
+                            <Form.Item
+                                name="Email"
                                 className="mt-0"
-                                size="large"
-                                name="email"
-                                placeholder="Enter email address"
-                                defaultValue={email}
-                                value={email}
-                                onChange={handleChangeEmail}
-                            />
-                        </Form.Item>
+                                rules={[{ required: true }, { type: 'email' }]}
+                            >
+                                <Input
+                                    prefix={
+                                        <Tooltip title="Email">
+                                            <MailOutlined className="mr-2" />
+                                        </Tooltip>
+                                    }
+                                    className="mt-0"
+                                    size="large"
+                                    name="email"
+                                    placeholder="Enter email address"
+                                    defaultValue={email}
+                                    value={email}
+                                    onChange={handleChangeEmail}
+                                />
+                            </Form.Item>
+                        }
+
 
                         {/* password */}
-                        <Form.Item
-                            name="Password"
-                            className="mt-0"
-                            rules={[{
-                                required: true, message: 'Password must include atleast 8 alphanumeric characters',
-                                pattern: new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
-                            }]}
-                        >
-                            <Input.Password
-                                prefix={
-                                    <Tooltip title="Password">
-                                        <LockOutlined className="mr-2" />
-                                    </Tooltip>
-                                }
-                                size="large"
+                        {password &&
+                            <Form.Item
                                 name="Password"
-                                placeholder="Enter password"
-                                defaultValue={password}
-                                value={password}
-                                onChange={handleChangePassword}
-                            />
-                        </Form.Item>
+                                className="mt-0"
+                                rules={[{
+                                    required: true, message: 'Password must include atleast 8 alphanumeric characters',
+                                    pattern: new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+                                }]}
+                            >
+                                <Input.Password
+                                    prefix={
+                                        <Tooltip title="Password">
+                                            <LockOutlined className="mr-2" />
+                                        </Tooltip>
+                                    }
+                                    size="large"
+                                    name="Password"
+                                    placeholder="Enter password"
+                                    defaultValue={password}
+                                    value={password}
+                                    onChange={handleChangePassword}
+                                />
+                            </Form.Item>
+                        }
+
 
                     </Col>
 
@@ -312,7 +318,7 @@ const EditProfileForm = ({
                     shape="round"
                     disabled={loadingButton}
                     loading={loadingButton}
-                    // onClick={handleSubmit}
+                // onClick={handleSubmit}
                 >
                     {loadingButton ? "Saving..." : "Save"}
                 </Button>

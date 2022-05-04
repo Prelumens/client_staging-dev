@@ -145,6 +145,8 @@ const AdminList = () => {
     };
     return (
         <AdminRoute>
+            {/* <pre>{JSON.stringify(activeAdmin, null, 4)}</pre>
+            <pre>{JSON.stringify(inactiveAdmin, null, 4)}</pre> */}
             <div className="layout-default layout-student-dashboard">
                 <div className="content">
                     <div className="admin-list-of-instructors-banner-bg">
