@@ -147,10 +147,6 @@ input:focus {
   padding: 0px 16px;
 }
 
-.card-profile-head {
-  margin: -53px 0 24px;
-}
-
 .card-profile-head .ant-card-head .ant-avatar {
   box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
   border-radius: 8px;
@@ -164,8 +160,7 @@ input:focus {
 
 .card-profile-head {
   box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
-  margin-bottom: 24px;
-  border-radius: 8px;
+  border-radius: 8px!important;
   margin: 0;
 }
 

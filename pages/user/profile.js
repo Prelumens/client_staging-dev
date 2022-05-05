@@ -161,7 +161,7 @@ const UserProfile = () => {
             <Card
                 loading={loading}
                 bordere={false}
-                className="card-profile-head"
+                className="card-profile-head mb-4"
                 bodyStyle={{ display: "none" }}
                 title={loading ?
                     <Skeleton avatar paragraph={{ rows: 2 }} /> :
