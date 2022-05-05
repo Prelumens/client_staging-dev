@@ -24,6 +24,7 @@ const AssignmentView = () => {
         title:''
     });
     const [submissions, setSubmissions] = useState([]);
+    const [activeSubmission, setActiveSubmission] = useState({});
     const [markMode, setMarkMode] = useState(false);
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -66,7 +67,7 @@ const AssignmentView = () => {
         }
     }
     const openSubmission = (item) => {
-        console.log(item)
+        setActiveSubmission(item)
         setGrade(item.grade)
         setVisible(true)
     }
@@ -183,109 +184,108 @@ const AssignmentView = () => {
                                                     {item.return && <Tag color="geekblue">RETURNED</Tag>}
                                                 </List.Item>
                                             </a>
-
-                                            <Drawer
-                                                title="Submission Detail"
-                                                width={500}
-                                                onClose={() => setVisible(false)}
-                                                visible={visible}
-                                                extra={
-                                                    <Space>
-                                                        <Button onClick={() => setVisible(false)}>Cancel</Button>
-                                                        <Button type="primary" onClick={() => submitGrade(item)} loading={submitLoading}>
-                                                            {loading ? "Saving..." : "Save"}
-                                                        </Button>
-                                                    </Space>
-                                                }
-                                            >
-                                                <Row>
-                                                    <Col span={17}>
-                                                        <Space align="center">
-                                                            <Avatar size={40} src={item.student?.picture ? item.student?.picture?.Location || item.student?.picture : 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true'} />
-                                                            <div>
-                                                                <Title level={5} className="m-0">{item.student?.name}</Title>
-                                                                <small className="text-muted">{item.student?.username}</small>
-                                                            </div>
-                                                            { moment(item.submissionDate).isAfter(assignment.deadline) &&
-                                                                <Tag color="error">LATE</Tag>
-                                                            }
-                                                        </Space>
-
-                                                    </Col>
-                                                    <Col span={7}>
-                                                        {markMode ? (
-                                                            <Space align="center">
-                                                                <InputNumber
-                                                                    defaultValue=""
-                                                                    controls={false}
-                                                                    min={1} max={100}
-                                                                    addonAfter="100"
-                                                                    onChange={inputChange} />
-                                                                <CheckCircleOutlined
-                                                                    style={{ fontSize: '20px', color: '#4BB543' }}
-                                                                    onClick={() => setMarkMode(false)}
-                                                                />
-                                                            </Space>
-                                                        ) : (
-                                                            <Space direction="vertical" align="center">
-                                                                <Statistic title="Grade" value={grade} suffix="/ 100" />
-                                                                <Tooltip title="Click to add grade">
-                                                                    <Button size="small" onClick={() => setMarkMode(true)}>
-                                                                        Grade Work
-                                                                    </Button>
-                                                                </Tooltip>
-                                                            </Space>
-                                                        )}
-                                                    </Col>
-                                                </Row>
-                                                <Divider />
-
-
-                                                <Row className="mb-2">
-                                                    <Col span={16}>
-                                                        <h6>Files Submitted</h6>
-                                                    </Col>
-                                                    <Col span={8} style={{textAlignLast:'end'}}>
-                                                        {item.return && <Tag color="geekblue">RETURNED</Tag>}
-                                                    </Col>
-
-                                                </Row>
-                                                <List
-                                                    className="submission-files"
-                                                    itemLayout="horizontal"
-                                                    dataSource={item.content}
-                                                    renderItem={(cont, index) => (
-                                                        <Card key={index}>
-                                                            <Row>
-                                                                <Col xs={2} sm={4} md={12} lg={8} xl={2}>
-                                                                    {/* {cont?.key?.match(new RegExp('[^.]+$'))[0] === 'pdf' ? <FilePdfTwoTone /> : item.key?.match(new RegExp('[^.]+$'))[0] === 'docx' ? <FileWordTwoTone /> : <FileTwoTone />} */}
-                                                                    {cont?.key?.match(new RegExp('[^.]+$'))[0] === 'pdf' ?
-                                                                        <FilePdfTwoTone />
-                                                                        : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'docx' ?
-                                                                        <FileWordTwoTone />
-                                                                        : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'jpeg' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'png' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'jpg' ?
-                                                                        <FileImageTwoTone />
-                                                                        : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'mp4' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'wmv' ?
-                                                                        <PlaySquareTwoTone />
-                                                                        :
-                                                                        <FileTwoTone />
-                                                                    }
-                                                                </Col>
-                                                                <Col xs={22} sm={16} md={6} lg={16} xl={22}>
-                                                                    <a href={cont.Location}>{cont.name}</a>
-                                                                </Col>
-                                                            </Row>
-                                                        </Card>
-                                                    )}
-                                                >
-
-                                                </List>
-                                            </Drawer>
                                         </>
                                     )}
                                 />
                             </div>
                         </Card>
+                        <Drawer
+                        title="Submission Detail"
+                        width={500}
+                        onClose={() => setVisible(false)}
+                        visible={visible}
+                        extra={
+                            <Space>
+                                <Button onClick={() => setVisible(false)}>Cancel</Button>
+                                <Button type="primary" onClick={() => submitGrade(activeSubmission)} loading={submitLoading}>
+                                    {loading ? "Saving..." : "Save"}
+                                </Button>
+                            </Space>
+                        }
+                    >
+                        <Row>
+                            <Col span={17}>
+                                <Space align="center">
+                                    <Avatar size={40} src={activeSubmission.student?.picture ? activeSubmission.student?.picture?.Location || activeSubmission.student?.picture : 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true'} />
+                                    <div>
+                                        <Title level={5} className="m-0">{activeSubmission.student?.name}</Title>
+                                        <small className="text-muted">{activeSubmission.student?.username}</small>
+                                    </div>
+                                    { moment(activeSubmission.submissionDate).isAfter(assignment.deadline) &&
+                                        <Tag color="error">LATE</Tag>
+                                    }
+                                </Space>
+
+                            </Col>
+                            <Col span={7}>
+                                {markMode ? (
+                                    <Space align="center">
+                                        <InputNumber
+                                            defaultValue=""
+                                            controls={false}
+                                            min={1} max={100}
+                                            addonAfter="100"
+                                            onChange={inputChange} />
+                                        <CheckCircleOutlined
+                                            style={{ fontSize: '20px', color: '#4BB543' }}
+                                            onClick={() => setMarkMode(false)}
+                                        />
+                                    </Space>
+                                ) : (
+                                    <Space direction="vertical" align="center">
+                                        <Statistic title="Grade" value={grade} suffix="/ 100" />
+                                        <Tooltip title="Click to add grade">
+                                            <Button size="small" onClick={() => setMarkMode(true)}>
+                                                Grade Work
+                                            </Button>
+                                        </Tooltip>
+                                    </Space>
+                                )}
+                            </Col>
+                        </Row>
+                        <Divider />
+
+
+                        <Row className="mb-2">
+                            <Col span={16}>
+                                <h6>Files Submitted</h6>
+                            </Col>
+                            <Col span={8} style={{textAlignLast:'end'}}>
+                                {activeSubmission.return && <Tag color="geekblue">RETURNED</Tag>}
+                            </Col>
+
+                        </Row>
+                        <List
+                            className="submission-files"
+                            itemLayout="horizontal"
+                            dataSource={activeSubmission.content}
+                            renderItem={(cont, index) => (
+                                <Card key={index}>
+                                    <Row>
+                                        <Col xs={2} sm={4} md={12} lg={8} xl={2}>
+                                            {/* {cont?.key?.match(new RegExp('[^.]+$'))[0] === 'pdf' ? <FilePdfTwoTone /> : item.key?.match(new RegExp('[^.]+$'))[0] === 'docx' ? <FileWordTwoTone /> : <FileTwoTone />} */}
+                                            {cont?.key?.match(new RegExp('[^.]+$'))[0] === 'pdf' ?
+                                                <FilePdfTwoTone />
+                                                : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'docx' ?
+                                                <FileWordTwoTone />
+                                                : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'jpeg' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'png' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'jpg' ?
+                                                <FileImageTwoTone />
+                                                : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'mp4' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'wmv' ?
+                                                <PlaySquareTwoTone />
+                                                :
+                                                <FileTwoTone />
+                                            }
+                                        </Col>
+                                        <Col xs={22} sm={16} md={6} lg={16} xl={22}>
+                                            <a href={cont.Location}>{cont.name}</a>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            )}
+                        >
+
+                        </List>
+                    </Drawer>
             </div>
         </InstructorRoute>
     );
