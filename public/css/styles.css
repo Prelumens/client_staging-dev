@@ -1612,5 +1612,13 @@ h2 {
 }
 
 .anticon{
-  vertical-align: .125em
+  vertical-align: .125em!important;
+}
+
+.ant-row{
+  margin-bottom: 24px;
+}
+
+.ant-page-header{
+  margin-bottom: 24px;
 }
