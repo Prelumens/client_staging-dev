@@ -160,6 +160,7 @@ const UserProfile = () => {
         <UserRoute>
             <Card
                 loading={loading}
+                bordere={false}
                 className="card-profile-head"
                 bodyStyle={{ display: "none" }}
                 title={loading ?
