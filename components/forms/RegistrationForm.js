@@ -129,7 +129,7 @@ const userRegistrationForm = ({
                                     <div className="form-row">
                                         <div className="col">
                                             <div className="form-group text-center">
-                                                <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas" style={{border: '50%', padding: '6px'}}>
+                                                <label htmlFor="photo-upload" className="btn btn-primary btn-sm text-left custom-file-upload fas" style={{borderRadius: '50%', padding: '6px'}}>
                                                     <div className="img-wrap img-upload" >
                                                         <Avatar size={100} src={preview} />
                                                     </div>
