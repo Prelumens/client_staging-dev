@@ -149,12 +149,12 @@ const QuestionsCreatedCard = ({
                                                         <ul>
                                                             {options.text.length !== 0 && !options.image?.Location ?
                                                                 <li>
-                                                                    {options.text}
+                                                                    {!options.text.includes('.jpeg' || '.png' || '.jpg') ? options.text : ''}
                                                                 </li>
                                                             : options.text.length !== 0 ||  options.image?.Location ?
                                                                 <li className="text-center">
                                                                     <Avatar size={200} src={options.image.Location}/>
-                                                                    <div>{options.text}</div>
+                                                                    <div>{!options.text.includes('.jpeg' || '.png' || '.jpg') ? options.text : ''}</div>
                                                                 </li>
                                                             :''
                                                         }
