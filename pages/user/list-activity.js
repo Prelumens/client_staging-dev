@@ -146,7 +146,7 @@ const ListQuiz = () => {
             router.push(`/user/quiz-summary/${slugify(item.title.toLowerCase())}`)
         } else if (item.itemType === "Assignment"){
             router.push(`/user/assignment/summary/${slugify(item.title.toLowerCase())}`)
-        } else {
+        } else  if (item.itemType === "Interactive"){
             router.push(`/user/interactive/summary/${slugify(item.title.toLowerCase())}`)
         }
     }

@@ -113,34 +113,9 @@ const QuizView = (
                     ) : (
                         <Tag color="#cd201f">HIDDEN</Tag>
                     )}
-                    extra={[
-                        <Button
-                            type="secondary"
-                            shape="round"
-                            icon={<EditOutlined />}
-                            onClick={() =>
-                                router.push(`/instructor/quiz/edit/${slug}`)
-                            }
-                        >
-                            EDIT
-                        </Button>,
-                        <Popconfirm
-                            placement="topRight"
-                            title="Are you sure you want to delete?"
-                            onConfirm={() => handleDelete(quiz._id)}
-                            // onCancel={cancel}
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button
-                                type="primary"
-                                shape="round"
-                                icon={<DeleteOutlined />}
-                            >
-                                DELETE
-                            </Button>
-                        </Popconfirm>,
-                    ]}
+                    extra={
+                        <Statistic className="text-right" title="Responses" value={responses.length} />
+                    }
                 >
                     <Row>
                         <Col span={20}>
@@ -149,9 +124,6 @@ const QuizView = (
                             <Paragraph style={{color:'#f0eff3'}}>
                                 {quiz.description}
                             </Paragraph>
-                        </Col>
-                        <Col span={4}>
-                            <Statistic className="text-right" title="Responses" value={responses.length} />
                         </Col>
                     </Row>
                 </PageHeader>

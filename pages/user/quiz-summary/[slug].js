@@ -114,11 +114,11 @@ const QuizSummary = (
                                                                 <label className="options">
                                                                     {option.text.length !== 0 && !option.image?.Location ?
                                                                     <p>
-                                                                        {!option.text.includes('prelms-bucket') ? option.text : ''}
+                                                                        {!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}
                                                                     </p>
                                                                     : option.text.length !== 0 ||  option.image.Location ?
                                                                         <div>
-                                                                            <p>{!option.text.includes('prelms-bucket') ? option.text : ''}</p>
+                                                                            <p>{!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}</p>
                                                                             <Image width={200} src={option.image.Location}/>
                                                                         </div>
                                                                     :''
@@ -138,11 +138,11 @@ const QuizSummary = (
                                                                 <label className="options">
                                                                     {option.text.length !== 0 && !option.image?.Location ?
                                                                     <p>
-                                                                        {!option.text.includes('prelms-bucket') ? option.text : ''}
+                                                                        {!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}
                                                                     </p>
                                                                     : option.text.length !== 0 ||  option.image.Location ?
                                                                         <div>
-                                                                            <p>{!option.text.includes('prelms-bucket') ? option.text : ''}</p>
+                                                                            <p>{!option.text.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}</p>
                                                                             <Image width={200} src={option.image.Location}/>
                                                                         </div>
                                                                     :''
@@ -168,7 +168,7 @@ const QuizSummary = (
                                                             <h6>Your Answer:</h6>
                                                             {studentAnswer[index].selectedOptions.map((answer, ansInd) => (
                                                                 <p className="pl-4 m-0" key={ansInd}>
-                                                                    {!answer.includes('prelms-bucket') ? answer : <Image width={100} src={answer} />}
+                                                                    {!answer.includes('.jpeg' || '.png' || '.jpg') ? answer : <Image width={100} src={answer} />}
                                                                 </p>
                                                             ))}
                                                         </Col>
@@ -187,7 +187,7 @@ const QuizSummary = (
                                                         <h6>Correct Answer:</h6>
                                                         {question.correctAnswer.map((correct, correctInd) => (
                                                             <p className="pl-4 m-0" key={correctInd}>
-                                                                {!correct.text.includes('prelms-bucket') ? correct.text : <Image width={100} src={correct.text} />}
+                                                                {!correct.text.includes('.jpeg' || '.png' || '.jpg') ? correct.text : <Image width={100} src={correct.text} />}
                                                             </p>
                                                         ))}
                                                     </div>
