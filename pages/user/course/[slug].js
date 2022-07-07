@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import StudentRoute from "../../../components/routes/StudentRoute";
-import { Button, Menu, Timeline, Layout, PageHeader, Tag, Drawer, Card, Collapse, Avatar, List, Row, Col } from "antd";
+import { Button, Menu, Input, Table, Divider, message, Modal, Timeline,Rate, Layout, PageHeader, Tag, Drawer, Card, Collapse, Avatar, List, Row, Col, Space } from "antd";
 import ReactPlayer from "react-player";
 import { toast } from 'react-toastify';
 import moment from 'moment';
@@ -11,30 +11,41 @@ import {
   CheckCircleFilled,
   FilePdfTwoTone,
   FileWordTwoTone,
-  FileTwoTone
+  FileTwoTone,
+  LikeOutlined,
 } from "@ant-design/icons";
 import { Context } from "../../../context";
 const { Header, Content, Footer, Sider } = Layout;
 const { Panel } = Collapse;
-
+const { TextArea } = Input;
 const SingleCourse = () => {
   const [clicked, setClicked] = useState(-1);
   const [course, setCourse] = useState({
     name: ''
   });
+  const [feedback, setFeedback] = useState({
+    criterionOne: '',
+    criterionTwo: '',
+    criterionThree: '',
+    overallExperience: '',
+    comment:''
+  });
   const [completedLessons, setCompletedLessons] = useState([]);
   // force state update
   const [updateState, setUpdateState] = useState(false);
   const [visibleQuiz, setVisibleQuiz] = useState(false);
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
+  const [feedbackSent, setFeedbackSent] = useState(false);
   const [actives, setActives] = useState([]);
   const [completeds, setCompleteds] = useState([]);
 
   const [currentUser, setCurrentUser] = useState()
-
+  const feedbackDesc = ['Unsatisfactory ', 'Good', 'Very Good', 'Excellent', 'Outstanding'];
+  const scaleInt = ['Strongly Disagree ', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+  const [rating, setRating] = useState(0);
   useEffect(() => {
     fetchUser();
   }, []);
-
   const fetchUser = async () => {
     try {
       const { data } = await axios.get("/api/current-userNavbar");
@@ -79,7 +90,15 @@ const SingleCourse = () => {
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/user/course/${slug}`);
     setCourse(data);
-    console.log(data);
+    if(data){
+    data.courseFeedbacks.forEach(fb => {
+      if(fb.student === user?._id){
+        setFeedbackSent(true)
+        setFeedback(fb)
+        console.log('matched',fb)
+      }
+    });
+    }
   };
 
   const loadCourseActivities = async () => {
@@ -129,6 +148,9 @@ const SingleCourse = () => {
 
     // console.log(data);
     setCompletedLessons([...completedLessons, course.lessons[clicked]._id]);
+    if([...completedLessons, course.lessons[clicked]._id].length === course?.lessons?.length){
+      toast.success('Congratulations! You have finished all the lessons.')
+    }
   };
 
   const markIncompleted = async () => {
@@ -152,6 +174,68 @@ const SingleCourse = () => {
     }
   };
 
+  //FUNCTIONS FOR ADD FEEDBACK
+  const handleAddFeedback = async (e) => {
+    e.preventDefault();
+      let fail = false;
+      if (!feedback.criterionOne || !feedback.criterionTwo || !feedback.criterionThree || !feedback.overallExperience) {
+          message.error("Please rate all criteria.")
+          fail = true;
+      }
+      if (!fail) {
+          try {
+              const { data } = await axios.post(
+                  `/api/course/feedback/${slug}`,
+                  {
+                      feedback
+                  }
+              );
+              toast("Feedback submitted!");
+              window.location.reload();
+          } catch (err) {
+              console.log(err);
+              toast("Feedback submit failed");
+          }
+      }
+  };
+  const columns = [
+    {
+      title: 'Criteria',
+      dataIndex: 'criteria',
+      width: "60%",
+    },
+    {
+      title: 'Rating',
+      width: "40%",
+      dataIndex: 'rating',
+      render: (_,record) => (
+        <Rate
+          tooltips={scaleInt}
+          defaultValue={0}
+          disabled={feedbackSent}
+          onChange={function name(value) {
+            setFeedback({...feedback,[record.key]: value});
+          }}
+          value={feedback[record.key]}
+          character={({ index }) => index + 1}
+        />
+      ),
+    }
+  ];
+  const data = [
+    {
+      key: 'criterionOne',
+      criteria: 'The course stimulated the interest of my child in the subject matter.',
+    },
+    {
+      key: 'criterionTwo',
+      criteria: 'The course was well detailed and accurate.',
+    },
+    {
+      key: 'criterionThree',
+      criteria: 'The course was well organized.',
+    },
+  ];
   return (
     <StudentRoute>
       <Layout>
@@ -216,7 +300,15 @@ const SingleCourse = () => {
                 tags={<Tag color="blue">{course.category}</Tag>}
                 avatar={{ src: course.image ? course.image.Location : "/course.png" }}
                 extra={[
-                  <Button type="primary" onClick={() => setVisibleQuiz(true)}>Activities</Button>
+                  <Button type="primary" onClick={() => setVisibleQuiz(true)}>Activities</Button>,
+                  completedLessons?.length === course?.lessons?.length &&
+                    <Button
+                      type="primary"
+                      onClick={() => setFeedbackVisible(true)}
+                      icon={<LikeOutlined />}
+                      >
+                        Course Feedback
+                    </Button>
                 ]}
               >
                 <Content
@@ -376,6 +468,93 @@ const SingleCourse = () => {
 
         </Layout>
       </Layout>
+      <Modal
+        title={`Course Feedback - ${course.name}`}
+        visible={feedbackVisible}
+        onOk={!feedbackSent ? handleAddFeedback : ()=>setFeedbackVisible(false)}
+        okText={!feedbackSent ? 'Submit' :'Ok'}
+        cancelText={!feedbackSent ? 'Cancel' :'Close'}
+        onCancel={()=>{ setFeedbackVisible(false)
+          if (!feedbackSent) {
+            setFeedback({
+              criterionOne: '',
+              criterionTwo: '',
+              criterionThree: '',
+              overallExperience: '',
+              comment:''
+            })
+          }
+        }}
+      >
+        <Row>
+          <Space>
+            <h6>Overall Rating:</h6>
+            <Rate
+              disabled={feedbackSent}
+              tooltips={feedbackDesc}
+              onChange={function name(value) {
+                setFeedback({...feedback,overallExperience: value});
+              }}
+              value={feedback.overallExperience}
+            />
+          </Space>
+        </Row>
+        <Divider/>
+        <Row>
+          <b>
+            Please rate each characteristic using the following criteria:
+          </b>
+            <small>
+              {"(1) Strongly Disagree"}
+              <Divider type="vertical" />
+              {"(2) Disagree"}
+              <Divider type="vertical" />
+              {"(3) Neutral"}
+              <Divider type="vertical" />
+              {"(4) Agree"}
+              <Divider type="vertical" />
+              {"(5) Strongly Agree"}
+              <Divider type="vertical" />
+            </small>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Table
+                className="feedback-table"
+                columns={columns}
+                dataSource={data}
+                size="small"
+                pagination={{ position: ['none','none'] }}
+              />
+          </Col>
+        </Row>
+        <Divider/>
+          {feedbackSent ?
+            feedback.comment &&
+            <>
+              <Row>
+                <span>Comments and/or Suggestions:</span>
+              </Row>
+              <Row>
+                <span>{feedback.comment}</span>
+              </Row>
+            </>
+            :
+            <>
+              <Row>
+                <span>Do you have any specific comments or recommendations for improving this course?</span>
+              </Row>
+              <Row>
+                  <TextArea
+                    onChange={(e) => setFeedback({...feedback,comment: e.target.value})}
+                    placeholder="Comments and/or Suggestions ... "
+                    autoSize={{ minRows: 2, maxRows: 6 }}
+                    value={feedback.comment}
+                  />
+              </Row>
+            </>
+        }
+      </Modal>
     </StudentRoute >
   );
 };

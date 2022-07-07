@@ -1618,3 +1618,18 @@ h2 {
 .ant-page-header{
   margin-bottom: 24px!important;
 }
+
+/* feedback */
+.feedback-table .ant-table-cell .ant-rate{
+  width: -webkit-fill-available;
+  text-align: center;
+}
+
+.instructor-feedback-table .ant-table-cell{
+  width: -webkit-fill-available;
+  text-align: center;
+}
+
+.feedback-table .ant-table-thead{
+  text-align-last: center;
+}

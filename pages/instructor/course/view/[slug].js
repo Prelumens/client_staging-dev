@@ -14,11 +14,13 @@ import {
     InfoCircleOutlined,
     FileTextOutlined,
     ContainerOutlined,
-    EllipsisOutlined
+    EllipsisOutlined,
+    CommentOutlined
 } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/forms/AddLessonForm";
 import ViewLessonModal from '../../../../components/modal/ViewLessonModal'
+import InstructorFeedbackModal from '../../../../components/modal/InstructorFeedbackModal'
 import { toast } from "react-toastify";
 import moment from 'moment';
 import Item from "antd/lib/list/Item";
@@ -39,6 +41,7 @@ const CourseView = () => {
     const [fileList, setFileList] = useState([]);
     const [lessons, setLessons] = useState([]);
 
+    const [feedbackVisible, setFeedbackVisible] = useState(false);
     // for lessons visibility
     const [visible, setVisible] = useState(false);
     const [lessonView, setLessonView] = useState(false);
@@ -391,6 +394,16 @@ const CourseView = () => {
                                                 </Badge>
                                             </Tooltip>
 
+                                            {/* feedback */}
+                                            <Tooltip title="Course Feedback">
+                                                <Badge size="small" className="mr-4">
+                                                    <CommentOutlined
+                                                        className="h5 pointer text-primary"
+                                                        onClick={()=>setFeedbackVisible(true)}
+                                                    />
+                                                </Badge>
+                                            </Tooltip>
+
                                             <Tooltip title="Other Details">
                                                 <InfoCircleOutlined
                                                     className="h5 pointer mr-4"
@@ -607,6 +620,12 @@ const CourseView = () => {
                             setLessonView={setLessonView}
                             lessonView={lessonView}
                             activeLesson={activeLesson}
+                        />
+
+                        <InstructorFeedbackModal
+                            feedbackVisible={feedbackVisible}
+                            setFeedbackVisible={setFeedbackVisible}
+                            course={course}
                         />
                     </div>
                 )}
