@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import axios from "axios";
-import { Avatar, Tooltip, Button, Modal, List, Row, Col, Card, Badge, Drawer, message, Skeleton } from "antd";
+import { Avatar, Tooltip, Button, Modal, List, Row, Col, Card, Badge, Drawer, message, Skeleton, Divider, Tag } from "antd";
 import {
     EditOutlined,
     CheckOutlined,
@@ -14,11 +14,13 @@ import {
     InfoCircleOutlined,
     FileTextOutlined,
     ContainerOutlined,
-    EllipsisOutlined
+    EllipsisOutlined,
+    CommentOutlined
 } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/forms/AddLessonForm";
 import ViewLessonModal from '../../../../components/modal/ViewLessonModal'
+import InstructorFeedbackModal from '../../../../components/modal/InstructorFeedbackModal'
 import { toast } from "react-toastify";
 import moment from 'moment';
 import Item from "antd/lib/list/Item";
@@ -39,6 +41,7 @@ const CourseView = () => {
     const [fileList, setFileList] = useState([]);
     const [lessons, setLessons] = useState([]);
 
+    const [feedbackVisible, setFeedbackVisible] = useState(false);
     // for lessons visibility
     const [visible, setVisible] = useState(false);
     const [lessonView, setLessonView] = useState(false);
@@ -91,7 +94,7 @@ const CourseView = () => {
     };
     const loadCourse = async () => {
         const { data } = await axios.get(`/api/course/${slug}`);
-        console.log(data.course.lessons.length)
+        console.log(data.course)
         setCourse(data.course);
         setLessons(data.course.lessons)
         setTodos([...data.activities].sort((a, b) => a - b).reverse())
@@ -123,7 +126,7 @@ const CourseView = () => {
     const handleAddLesson = async (e) => {
         e.preventDefault();
         let fail = false;
-        if(fileList.length > 0 && uploaded.length === 0){
+        if (fileList.length > 0 && uploaded.length === 0) {
             message.error("Please upload the attached files.")
             fail = true;
         }
@@ -137,7 +140,7 @@ const CourseView = () => {
         }
         if (!fail) {
             try {
-                let tempWiki =[]
+                let tempWiki = []
                 const { data } = await axios.post(
                     `/api/course/lesson/${slug}/${course.instructor._id}`,
                     {
@@ -217,13 +220,11 @@ const CourseView = () => {
 
     const handlePublish = async (e, courseId) => {
         try {
-            // let answer = window.confirm('Are you sure you want to publish this course?')
-            // // if (!answer) return;
             const publish = async () => {
                 const { data } = await axios.put(`/api/course/publish/${courseId}`)
                 setCourse(data)
-                toast('Course published')
-                window.location.reload()
+                toast('Course published successfully!')
+                // window.location.reload()
             }
             if (courseId) {
                 Modal.confirm({
@@ -243,8 +244,8 @@ const CourseView = () => {
             const unpublish = async () => {
                 const { data } = await axios.put(`/api/course/unpublish/${courseId}`)
                 setCourse(data)
-                toast('Course Unpublished')
-                window.location.reload();
+                toast('Course unpublished successfully!')
+                // window.location.reload();
             }
             if (courseId) {
                 Modal.confirm({
@@ -280,7 +281,6 @@ const CourseView = () => {
         try {
             const { data } = await axios.get(`/api/instructor/course/student-enrollment-status-list/${course._id}`)
             setStudentList(data)
-            console.log("STUDENT LIST => ", data)
         } catch (err) {
             console.log(err)
         }
@@ -302,7 +302,6 @@ const CourseView = () => {
                     folder: 'course/lesson'
                 });
             toast("Files uploaded successfully!")
-            console.log('data', data)
             setUploaded(data)
         } catch (error) {
             console.log(error)
@@ -310,10 +309,6 @@ const CourseView = () => {
     };
     //View Page action
     const onView = (activity) => {
-        console.log(activity)
-        console.log('quiz', quiz.includes(activity))
-        console.log('assignment', assignment.includes(activity))
-        console.log('interactive', interactive.includes(activity))
         let quizType = quiz.filter((item) => {
             return item._id === activity._id
         })
@@ -349,10 +344,12 @@ const CourseView = () => {
                                             <h5 className="mt-2 text-primary">{course.name}</h5>
                                             <p style={{ marginTop: "-10px" }}>
                                                 {course.lessons && course.lessons.length} Lessons
-                                            </p>
-                                            <p style={{ marginTop: "-15px", fontSize: "10px" }}>
+                                                <Divider type="vertical" />
                                                 {course.category}
                                             </p>
+                                            <div style={{ marginTop: "-10px" }}>
+                                                {course.published ? <Tag color="processing">PUBLISHED</Tag> : <Tag color="default">UNPUBLISHED</Tag>}
+                                            </div>
                                         </div>
 
                                         <div className="d-flex pt-4">
@@ -393,6 +390,16 @@ const CourseView = () => {
                                                     <ContainerOutlined
                                                         className="h5 pointer text-info"
                                                         onClick={handleOpenNotification}
+                                                    />
+                                                </Badge>
+                                            </Tooltip>
+
+                                            {/* feedback */}
+                                            <Tooltip title="Course Feedback">
+                                                <Badge size="small" className="mr-4">
+                                                    <CommentOutlined
+                                                        className="h5 pointer text-primary"
+                                                        onClick={()=>setFeedbackVisible(true)}
                                                     />
                                                 </Badge>
                                             </Tooltip>
@@ -573,7 +580,7 @@ const CourseView = () => {
                                         bodyStyle={{ paddingTop: 0 }}
                                         className="header-solid h-full  ant-list-yes"
                                         title={<h6 className="font-semibold m-0">Activities</h6>}
-                                        extra={<a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
+                                        extra={listLoad.length <= 3 && <a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
                                     >
                                         <List
                                             loading={loading}
@@ -613,6 +620,12 @@ const CourseView = () => {
                             setLessonView={setLessonView}
                             lessonView={lessonView}
                             activeLesson={activeLesson}
+                        />
+
+                        <InstructorFeedbackModal
+                            feedbackVisible={feedbackVisible}
+                            setFeedbackVisible={setFeedbackVisible}
+                            course={course}
                         />
                     </div>
                 )}

@@ -17,7 +17,6 @@ const AddQuestionForm = ({
 	title = '',
 	opType = 'radio',
 	opArray,
-	index = -1,
 
     // passed props
     visible,
@@ -26,6 +25,7 @@ const AddQuestionForm = ({
     editQuestionHandle,
     question,
     editQuestion,
+	setActiveQuestion,
     setVisibleEdit,
 	editPage,
 	setEditQuestion
@@ -42,7 +42,6 @@ const AddQuestionForm = ({
 	const optionsRef = useRef(null)
 	const checkBoxRef = useRef(null)
     const handleTypeChange = (value) => {
-		console.log("type", value)
 		setOptionType(value)
 	}
 
@@ -60,7 +59,7 @@ const AddQuestionForm = ({
 			setImage({})
 			setOptionType('radio')
 		}
-	}, [visible, title, opType, opArray, question])
+	}, [question])
 
     const addOption = () => {
 		const arr = [...optionsArray]
@@ -93,7 +92,6 @@ const AddQuestionForm = ({
 			image: imageOption,
 			isCorrect: checkBoxRef.current.checked,
 		})
-		console.group('imageOption',imageOption)
 		optionsRef.current.value = ''
 		checkBoxRef.current.checked = false
 		setImageOption({})
@@ -151,17 +149,14 @@ const AddQuestionForm = ({
 			message.error('No correct option was selected.')
 			return
 		}
-		if (index !== -1) addQuestionHandle(titleField, optionType, tempArr, index, correctOp, image)
-		else {
-            addQuestionHandle(titleField, optionType, tempArr, correctOp,image)
-            toast("Question added!");
-            setVisible(false)
-            setTitleField('')
-			setOptionsArray([])
-			setImage({})
-			setImageOption({})
-			setOptionType('radio')
-        }
+		addQuestionHandle(titleField, optionType, tempArr, correctOp,image)
+		toast("Question added!");
+		setVisible(false)
+		setTitleField('')
+		setOptionsArray([])
+		setImage({})
+		setImageOption({})
+		setOptionType('radio')
 	}
 
     const editQuestionCallBack = () => {
@@ -194,16 +189,13 @@ const AddQuestionForm = ({
 			message.error('No correct option was selected.')
 			return
 		}
-		if (index !== -1) editQuestionHandle(titleField, optionType, tempArr, index, correctOp, image)
-		else {
-            editQuestionHandle(titleField, optionType, tempArr, index, correctOp, image)
-            setVisible(false)
-            setTitleField('')
-			setOptionsArray([])
-			setImage({})
-			setImageOption({})
-			setOptionType('radio')
-        }
+		editQuestionHandle(titleField, optionType, tempArr, correctOp, image)
+		setVisible(false)
+		setTitleField('')
+		setOptionsArray([])
+		setImage({})
+		setImageOption({})
+		setOptionType('radio')
 	}
 
 	const handleImage = (e) => {
@@ -216,7 +208,6 @@ const AddQuestionForm = ({
 				image: uri,
 				folder: 'activities/images'
 			});
-			console.log('IMAGE UPLOADED', data)
 			//set image in the state, set loading to false
 			setImage(data)
 			message.success("Image uploaded succesfully!")
@@ -228,7 +219,6 @@ const AddQuestionForm = ({
 	};
 
 	const handleImageRemove = async () => {
-		console.log('REMOVE IMAGE')
 		try {
 		  // const res = await axios.post('/api/course/remove-image', { image })
 		  setImage({})
@@ -267,6 +257,7 @@ const AddQuestionForm = ({
 				onCancel={() => {
 					setVisible(false)
 					setEditQuestion(false)
+					setActiveQuestion({})
 				}}
 				footer={null}
 				width={750}
@@ -352,7 +343,7 @@ const AddQuestionForm = ({
 												{option.image?.Location ?
 													<Avatar size={64} shape="square" src={option.image.Location}/>
 												:''}
-												<p className='add-op'>{!option.text.includes('prelms-bucket') ? option.text : ''}</p>
+												<p className='add-op'>{!option.text?.includes('.jpeg' || '.png' || '.jpg') ? option.text : ''}</p>
 											</Space>
 										)}
 									</Col>

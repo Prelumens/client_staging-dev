@@ -27,9 +27,6 @@ const QuestionsCreatedCard = ({
 
     const router = useRouter();
     const editPageHandleDelete = async(quizId, question, index) => {
-        console.log('initialQuestions',initialQuestions)
-        console.log('question',question)
-        console.log('initialQuestions.includes(question)',initialQuestions.includes(question))
         if(initialQuestions.includes(question)){
             try {
                 const { deletedQuiz } = await axios.put(`/api/quiz/delete-question/${quizId}/${question._id}`);
@@ -99,18 +96,18 @@ const QuestionsCreatedCard = ({
                                 >
                                     <Descriptions>
                                         <Descriptions.Item label="Answer/s" span={3}>
-                                            {q.options.map((options, index) => (
+                                            {q.options?.map((options, index) => (
                                                 <div key={index}>
                                                     {options.isCorrect &&
                                                         <div>
                                                         {options.text.length !== 0 && !options.image?.Location ?
                                                             <p>
-                                                                {!options.text.includes('prelms-bucket') ? options.text : ''}
+                                                                {!options.text.includes('.jpeg' || '.png' || '.jpg') ? options.text : ''}
                                                             </p>
                                                         : options.text.length !== 0 ||  options.image.Location ?
                                                             <div className="text-center">
                                                                 <Avatar size={200} src={options.image.Location}/>
-                                                                <p>{!options.text.includes('prelms-bucket') ? options.text : ''}</p>
+                                                                <p>{!options.text.includes('.jpeg' || '.png' || '.jpg') ? options.text : ''}</p>
                                                             </div>
                                                         :''
                                                         }
@@ -152,12 +149,12 @@ const QuestionsCreatedCard = ({
                                                         <ul>
                                                             {options.text.length !== 0 && !options.image?.Location ?
                                                                 <li>
-                                                                    {options.text}
+                                                                    {!options.text.includes('.jpeg' || '.png' || '.jpg') ? options.text : ''}
                                                                 </li>
                                                             : options.text.length !== 0 ||  options.image?.Location ?
                                                                 <li className="text-center">
                                                                     <Avatar size={200} src={options.image.Location}/>
-                                                                    <div>{options.text}</div>
+                                                                    <div>{!options.text.includes('.jpeg' || '.png' || '.jpg') ? options.text : ''}</div>
                                                                 </li>
                                                             :''
                                                         }

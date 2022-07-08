@@ -147,10 +147,6 @@ input:focus {
   padding: 0px 16px;
 }
 
-.card-profile-head {
-  margin: -53px 0 24px;
-}
-
 .card-profile-head .ant-card-head .ant-avatar {
   box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
   border-radius: 8px;
@@ -164,7 +160,7 @@ input:focus {
 
 .card-profile-head {
   box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
-  border-radius: 8px;
+  border-radius: 8px!important;
   margin: 0;
 }
 
@@ -352,6 +348,7 @@ input:focus {
   border-bottom: 0;
 }
 .h-full {
+  margin-top: 20pxheader;
   height: 100%;
 }
 
@@ -640,10 +637,10 @@ input:focus {
 }
 
 .card-quiz-head {
-  border-radius: 8px;
-  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-  margin: -53px 0 24px;
-  margin: -53px 24px 24px;
+  border-radius: 8px!important;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%)!important;
+  margin: -53px 0 24px!important;
+  margin: -53px 24px 24px!important;
 }
 
 .card-quiz-information {
@@ -1608,4 +1605,31 @@ h2 {
   background: url("https://prelms-bucket.s3.ap-southeast-1.amazonaws.com/assets/welcome-screen.gif") no-repeat center top;
   background-size: 100%;
   height: 93vh;
+}
+
+.anticon{
+  vertical-align: .125em!important;
+}
+
+.ant-row{
+  margin-bottom: 24px!important;
+}
+
+.ant-page-header{
+  margin-bottom: 24px!important;
+}
+
+/* feedback */
+.feedback-table .ant-table-cell .ant-rate{
+  width: -webkit-fill-available;
+  text-align: center;
+}
+
+.instructor-feedback-table .ant-table-cell{
+  width: -webkit-fill-available;
+  text-align: center;
+}
+
+.feedback-table .ant-table-thead{
+  text-align-last: center;
 }

@@ -86,8 +86,9 @@ const AddAdmin = () => {
         setLoading(false);
         setIsValid(true)
       } catch (err) {
-        console.log(err)
+        // console.log(err)
         console.log(err.response.data)
+        toast.error(err.response.data)
         setLoading(false)
       }
     } catch (error) {

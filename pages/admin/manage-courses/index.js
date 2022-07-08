@@ -2,7 +2,7 @@ import AdminRoute from "../../../components/routes/AdminRoute";
 import { useState, useEffect } from "react";
 import axios from 'axios'
 import CourseCardAdmin from "../../../components/cards/CourseCardAdmin";
-import { Tag, Avatar, Row, Col, Progress, Card } from "antd";
+import { Tag, Avatar, Row, Col, Progress, Card, Empty } from "antd";
 import Link from "next/link";
 
 const ManageCourseIndex = () => {
@@ -30,6 +30,7 @@ const ManageCourseIndex = () => {
                         <h1 className="">Manage Courses</h1>
                     </div>
                     <Card loading={loading}>
+                    {courses.length > 0 ?
                         <Row gutter={[32, 16]}>
                             {courses &&
                                 courses.map((course) => (
@@ -44,7 +45,7 @@ const ManageCourseIndex = () => {
                                                 </div>
                                                 <div className="enrolled-course-content">
                                                     <div className="card-content-header">
-                                                        <h2>{course.name}</h2>
+                                                        <h6>{course.name}</h6>
                                                     </div>
                                                     <div className="card-content-meta">
                                                         <Tag color="#108ee9">{course.category}</Tag>
@@ -80,6 +81,20 @@ const ManageCourseIndex = () => {
                                     </Col>
                                 ))}
                         </Row>
+                    :
+                        <Empty
+                            image="https://cdn.dribbble.com/users/1181180/screenshots/7025252/media/aa9558875314510c281a4483bc99da22.gif"
+                            imageStyle={{
+                                height: 250,
+                            }}
+                            description={
+                                <span className="text-muted">
+                                    No Published Courses Yet
+                                </span>
+                            }
+                        >
+                        </Empty>
+                    }
                     </Card>
                 </div>
             </div>

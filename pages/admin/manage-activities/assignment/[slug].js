@@ -21,6 +21,8 @@ const AssignmentAdminView = () => {
     const router = useRouter();
     const { slug } = router.query;
     const [loading, setLoading] = useState(true);
+    const [visible, setVisible] = useState(false);
+    const [grade, setGrade] = useState('');
     const [assignment, setAssignment] = useState({
         title:''
     });
@@ -51,6 +53,10 @@ const AssignmentAdminView = () => {
         </Row>
       );
 
+      const openSubmission = (item) => {
+        setGrade(item.grade)
+        setVisible(true)
+    }
     return (
         <AdminRoute>
             {loading ? <Skeleton avatar paragraph={{ rows: 2 }} />
@@ -59,8 +65,14 @@ const AssignmentAdminView = () => {
                     className="site-page-header-responsive gradient-banner text-white"
                     onBack={() => window.history.back()}
                     title={assignment.title}
-                    subTitle={
-                        <> Due on {moment(assignment.deadline).format("MMMM Do YYYY, LT")} </>
+                    subTitle={ assignment.access ?
+                        <Tag color="#3b5999">
+                            POSTED
+                        </Tag>
+                        :
+                        <Tag color="#cd201f">
+                            HIDDEN
+                        </Tag>
                     }
                     extra={
                         <Content
@@ -70,7 +82,9 @@ const AssignmentAdminView = () => {
                     />
                     }
                 >
-                <p>{assignment.description}</p>
+                    <p className="m-0 font-italic" style={{color:'#f0eff3'}} > Due on {moment(assignment.deadline).format("MMMM Do YYYY, LT")} </p>
+                    <Divider className="m-0" style={{backgroundColor:'#f0eff3'}}/>
+                    <p className="mt-2">{assignment.description}</p>
                 </PageHeader>
             }
             <Row gutter={[24, 0]}>
@@ -124,7 +138,7 @@ const AssignmentAdminView = () => {
                             dataSource={submissions}
                             renderItem={(item, index) => (
                                 <>
-                                <a>
+                                <a onClick={() => openSubmission(item)}>
                                     <List.Item>
                                         <List.Item.Meta
                                         avatar={<Avatar>{index + 1}</Avatar>}
@@ -140,6 +154,76 @@ const AssignmentAdminView = () => {
                                         />
                                     </List.Item>
                                 </a>
+                                <Drawer
+                                    title="Submission Detail"
+                                    width={500}
+                                    onClose={() => setVisible(false)}
+                                    visible={visible}
+                                    extra={
+                                        <Button onClick={() => setVisible(false)}>Close</Button>
+                                    }
+                                >
+                                    <Row>
+                                        <Col span={17}>
+                                            <Space align="center">
+                                                <Avatar size={40} src={item.student?.picture ? item.student?.picture?.Location || item.student?.picture : 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true'} />
+                                                <div>
+                                                    <Title level={5} className="m-0">{item.student?.name}</Title>
+                                                    <small className="text-muted">{item.student?.username}</small>
+                                                </div>
+                                                { moment(item.submissionDate).isAfter(assignment.deadline) &&
+                                                    <Tag color="error">LATE</Tag>
+                                                }
+                                            </Space>
+
+                                        </Col>
+                                        <Col span={7}>
+                                            <Statistic title="Grade" value={grade} suffix="/ 100" />
+                                        </Col>
+                                    </Row>
+                                    <Divider />
+
+
+                                    <Row className="mb-2">
+                                        <Col span={16}>
+                                            <h6>Files Submitted</h6>
+                                        </Col>
+                                        <Col span={8} style={{textAlignLast:'end'}}>
+                                            {item.return && <Tag color="geekblue">RETURNED</Tag>}
+                                        </Col>
+
+                                    </Row>
+                                    <List
+                                        className="submission-files"
+                                        itemLayout="horizontal"
+                                        dataSource={item.content}
+                                        renderItem={(cont, index) => (
+                                            <Card key={index}>
+                                                <Row>
+                                                    <Col xs={2} sm={4} md={12} lg={8} xl={2}>
+                                                        {/* {cont?.key?.match(new RegExp('[^.]+$'))[0] === 'pdf' ? <FilePdfTwoTone /> : item.key?.match(new RegExp('[^.]+$'))[0] === 'docx' ? <FileWordTwoTone /> : <FileTwoTone />} */}
+                                                        {cont?.key?.match(new RegExp('[^.]+$'))[0] === 'pdf' ?
+                                                            <FilePdfTwoTone />
+                                                            : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'docx' ?
+                                                            <FileWordTwoTone />
+                                                            : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'jpeg' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'png' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'jpg' ?
+                                                            <FileImageTwoTone />
+                                                            : cont?.key?.match(new RegExp('[^.]+$'))[0] === 'mp4' || cont?.key?.match(new RegExp('[^.]+$'))[0] === 'wmv' ?
+                                                            <PlaySquareTwoTone />
+                                                            :
+                                                            <FileTwoTone />
+                                                        }
+                                                    </Col>
+                                                    <Col xs={22} sm={16} md={6} lg={16} xl={22}>
+                                                        <a href={cont.Location}>{cont.name}</a>
+                                                    </Col>
+                                                </Row>
+                                            </Card>
+                                        )}
+                                    >
+
+                                    </List>
+                                </Drawer>
                                 </>
                             )}
                         />
@@ -147,6 +231,7 @@ const AssignmentAdminView = () => {
                     </Card>
                 </Col>
             </Row>
+
         </AdminRoute>
     );
 };

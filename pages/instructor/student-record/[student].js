@@ -56,7 +56,7 @@ const StudentRecord = ({
             <PageHeader
                 className="site-page-header-responsive gradient-banner"
                 onBack={() => window.history.back()}
-                avatar={{ src: studentInfo.image?.Location }}
+                avatar={{ src: studentInfo.image?.Location ? studentInfo.image?.Location : 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true' }}
                 title={studentInfo.fullName}
                 tags={<Tag color="blue">{studentInfo.username}</Tag>}
             >

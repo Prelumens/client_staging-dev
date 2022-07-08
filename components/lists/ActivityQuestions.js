@@ -7,7 +7,15 @@ import { SnippetsOutlined,
     EditOutlined,
     DeleteOutlined, } from '@ant-design/icons';
 
-const ActivityQuestions = ({ questionArray, setQuestionArray, editQuestion,  }) => {
+const ActivityQuestions = ({
+    questionArray,
+    setQuestionArray,
+    setEditQuestion,
+    setVisible,
+    setActiveQuestion,
+    editQuestion,
+    setQuestionIndex
+}) => {
     const deleteQuestion = (index) => {
         const temp = [...questionArray]
         const deleteItem = () => {
@@ -23,6 +31,13 @@ const ActivityQuestions = ({ questionArray, setQuestionArray, editQuestion,  }) 
             }
         })
 	}
+    const handleEdit = (index) =>{
+        const temp = [...questionArray]
+        setQuestionIndex(index)
+        setEditQuestion(true)
+        setVisible(true);
+        setActiveQuestion(temp[index]);
+    }
     return (
         <Collapse
         bordered={false}
@@ -38,18 +53,20 @@ const ActivityQuestions = ({ questionArray, setQuestionArray, editQuestion,  }) 
                     </Space>
                 }
                 extra={
-                    editQuestion ?
-                        <Space size="middle">
+                    <Space size="middle">
                         <Tooltip title="Remove" onClick={() => deleteQuestion(index)}>
                             <DeleteOutlined style={{ fontSize: '18px' }} className="text-danger" />
                         </Tooltip>
+                        <Tooltip title="Edit" onClick={() => handleEdit(index)}>
+                            <EditOutlined style={{ fontSize: '18px' }} className="text-warning"/>
+                        </Tooltip>
+
                         {question.type === 'plain-text' ? (
                             <Tag color="gold">Text</Tag>
                         ):(
                             <Tag color="geekblue">Image</Tag>
                         )}
                     </Space >
-                    :''
                 }
                 >
                     <Row gutter={[40, 16]}>

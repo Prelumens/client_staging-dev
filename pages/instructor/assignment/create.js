@@ -22,7 +22,6 @@ import {
   ToTopOutlined,
   PlusOutlined
 } from "@ant-design/icons";
-import { uploadFile } from "../../../../server/controllers/activity";
 
 const AssignmentCreate = () => {
   const { Option } = Select;
@@ -84,6 +83,7 @@ const AssignmentCreate = () => {
 
   const handleCreate = async () => {
     setLoading(true)
+    let uploadS3=[];
     let fail=false;
     const size = Buffer.byteLength(JSON.stringify(fileList))
     const kiloBytes = size / 1024;
@@ -113,30 +113,33 @@ const AssignmentCreate = () => {
       }
       if(!fail && kiloBytes < 50000){
         try {
-          const { data } = await axios.post(`/api/s3/upload-file`,
-          {
-              fileList,
-              folder: 'activities'
-          });
-          setUploaded(data);
-          if(data){
+          if(fileList.length > 0){
+            const { data } = await axios.post(`/api/s3/upload-file`,
+            {
+                fileList,
+                folder: 'activities'
+            });
+            uploadS3 = data
+          }
+          if(uploadS3){
             const { res } = await axios.post("/api/assignment/create", {
                 title,
                 access,
                 assignCourse,
                 deadline,
                 description,
-                uploaded: data
+                uploaded: uploadS3
             });
             toast("Assignment created!");
             router.push("/instructor/list-activity");
+          } else {
+            toast.error("File too large. Please try again.");
           }
 
         } catch (err) {
+          toast.error(err.response.data)
           console.log(err);
         }
-      } else {
-        toast.error("File too large. Please try again.");
       }
     }
   }
@@ -241,18 +244,22 @@ const AssignmentCreate = () => {
                     </Space>
                   </Col>
                 </Row>
-                <Button
-                  loading={loading}
-                  onClick={() => {handleCreate()}}
-                  className="text-center float-right"
-                  type="primary"
-                  shape="round"
-                  icon={<PlusOutlined />}
-                  size="large"
-                >
-                  {loading ? "Saving..." : "Add Assignment"}
-                </Button>
               </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} style={{textAlignLast: 'right'}}>
+              <Button
+                loading={loading}
+                onClick={() => {handleCreate()}}
+                className="text-center"
+                type="primary"
+                shape="round"
+                icon={<PlusOutlined />}
+                size="large"
+              >
+                {loading ? "Saving..." : "Add Assignment"}
+              </Button>
             </Col>
           </Row>
         </div>

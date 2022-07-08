@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
-import { Input, Select, Divider , Tooltip, Button, Row, Col, Radio, Space, message, Avatar, Badge   } from 'antd';
+import { Input, Select, Divider , Tooltip, Button, Row, Col, Radio, Space, message, Avatar, Badge, Modal   } from 'antd';
 import {
     PlusCircleOutlined,
     EditOutlined,
@@ -15,12 +15,14 @@ const InteractiveActivityForm = ({
     // default values
 	index = -1,
 	// passed props
+	question,
     visible,
     setVisible,
 	addQuestionHandle,
     editQuestionHandle,
     editQuestion,
-    setVisibleEdit
+	setEditQuestion,
+    setActiveQuestion
 }) => {
     const { Option } = Select;
 	const [type, setType] = useState('plain-text')
@@ -33,6 +35,20 @@ const InteractiveActivityForm = ({
 	const [uploadButtonText, setUploadButtonText] = useState("Upload Image")
 	const optionsRef = useRef(null)
 	const checkBoxRef = useRef(null)
+
+	useEffect(() => {
+		if (editQuestion && question) {
+			console.log('question',question)
+			setTitleField(question.titleField)
+			setType(question.type)
+			setCorrectAnswer(question.correctAnswer)
+			if (question.choices) setChoices(question.choices)
+		} else {
+			setTitleField('')
+			setChoices([])
+			setType('plain-text')
+		}
+	}, [question])
 
     const handleTypeChange = (value) => {
 		setType(value)
@@ -156,31 +172,26 @@ const InteractiveActivityForm = ({
 			setType('plain-text')
         }
 	}
-	// const editQuestionCallBack = () => {
-	// 	const tempArr = [...choices]
-	// 	// Error Handling
-	// 	if (!titleField.length && choices.length < 2) {
-	// 		message.error('Please add Question and atleast 2 options.');
-	// 		return
-	// 	} else if (!titleField.length) {
-	// 		message.error('Please add Question.')
-	// 		return
-	// 	} else if (choices.length < 2) {
-	// 		message.error('Number of Options must be greater than 1.')
-	// 		return
-	// 	}
-	// 	if (!correctAnswer) {
-	// 		message.error('No correct option was selected.')
-	// 		return
-	// 	}
-	// 	if (index !== -1) (titleField, type, tempArr,correctAnswer, index)
-	// 	else {
-    //         editQuestionHandle(titleField, type, tempArr,correctAnswer)
-    //         toast("Question Updated!");
-    //         setVisibleEdit(false)
-    //         console.log("edited title", titleField)
-    //     }
-	// }
+	const editQuestionCallBack = () => {
+		const tempArr = [...choices]
+		// Error Handling
+		if (!titleField.length && choices.length < 2) {
+			message.error('Please add Question and atleast 2 options.');
+			return
+		} else if (!titleField.length) {
+			message.error('Please add Question.')
+			return
+		} else if (choices.length < 2) {
+			message.error('Number of Options must be greater than 1.')
+			return
+		}
+		if (!correctAnswer) {
+			message.error('No correct option was selected.')
+			return
+		}
+		editQuestionHandle(titleField, type, tempArr,correctAnswer)
+		setVisible(false)
+	}
 	const handleImage = (e) => {
 		let file = e.target.files[0];
 		//show file name
@@ -205,6 +216,18 @@ const InteractiveActivityForm = ({
 	};
     return(
         <>
+        <Modal
+          title={!editQuestion ? "+ Add Question" : "Edit Question"}
+          centered
+          visible={visible}
+          onCancel={() => {
+			setVisible(false)
+			setEditQuestion(false)
+			setActiveQuestion({})
+		}}
+          footer={null}
+          width={750}
+        >
 			<Row className='mb-2'>
 				<Col span={24} className="text-right">
 					<Select
@@ -356,13 +379,19 @@ const InteractiveActivityForm = ({
                         <Button onClick={() => setVisible(false)}>Close</Button>
                         <Button
                             type="primary"
-                            onClick={ () => {addQuestionCallBack()}}
+                            onClick={ () => {
+								if (editQuestion) editQuestionCallBack()
+								else addQuestionCallBack()
+							}}
                             >
-                                Add Question
+                                {editQuestion ? 'Save ' : 'Add '}
+								Question
                         </Button>
                     </Space>
                 </div>
 			</div>
+
+		</Modal>
         </>
     );
 };

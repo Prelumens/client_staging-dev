@@ -77,7 +77,7 @@ const EnrolledCourses = () => {
                                                     }
                                                     <Progress percent={course.progress} showInfo={false} />
                                                     <div className="card-content-header">
-                                                        <h2>{course.name}</h2>
+                                                        <h6>{course.name}</h6>
                                                     </div>
                                                     <div className="card-content-meta">
                                                         <Tag color="#108ee9">{course.category}</Tag>

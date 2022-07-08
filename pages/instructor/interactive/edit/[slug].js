@@ -42,8 +42,11 @@ const InteractiveEdit = () => {
   const [instructionSet, setInstructionSet] = useState([])
   const [instruction, setInstruction] = useState('');
   const [visible, setVisible] = useState(false);
+  const [editQuestion, setEditQuestion] = useState(false)
   const [courses, setCourses] = useState([]);
+  const [activeQuestion, setActiveQuestion] = useState({});
   const [loading, setLoading] = useState(false)
+  const [questionIndex, setQuestionIndex] = useState(null);
   // router
   const router = useRouter();
   const { slug } = router.query;
@@ -76,10 +79,13 @@ const InteractiveEdit = () => {
     }
 };
   const addItem = () => {
-    setInstructionSet([...instructionSet, instruction]);
-    console.log(instructionSet);
+    let temp = [...instructionSet]
+    temp.push(instruction)
+    console.log('temp',temp)
+    setInstructionSet(temp);
     setInstruction('');
   };
+
   //add the questions to the array
   const addQuestionHandle = (titleField, type, choices, correctAnswer) => {
 		const arr = [...questionArray]
@@ -88,6 +94,15 @@ const InteractiveEdit = () => {
     console.log(arr);
 	}
 
+  const editQuestionHandle = async (titleField, type, choices,correctAnswer) => {
+    const temp = [...questionArray];
+    temp[questionIndex] = {titleField, type, choices,correctAnswer};
+    setQuestionArray(temp)
+    console.log('temp', temp)
+    toast("Question Updated!");
+    setQuestionIndex(null)
+    // window.location.reload(false);
+  };
   const handleUpdate = async () => {
     setLoading(true)
     let fail=false;
@@ -141,6 +156,7 @@ const InteractiveEdit = () => {
             router.push("/instructor/list-activity");
 
         } catch (err) {
+            toast.error(err.response.data)
             console.log(err);
         }
       }
@@ -265,7 +281,7 @@ const InteractiveEdit = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs="24" xl={24}>
+            <Col span={24}>
               <Card
                 bordered={false}
                 className="circlebox mb-24"
@@ -281,7 +297,10 @@ const InteractiveEdit = () => {
                 }
               >
                 <ActivityQuestions
-                  editQuestion = {true}
+                  setQuestionIndex={setQuestionIndex}
+                  editQuestion = {editQuestion}
+                  setEditQuestion={setEditQuestion}
+                  setActiveQuestion={setActiveQuestion}
                   setVisible={setVisible}
                   setQuestionArray = {setQuestionArray}
                   questionArray = {questionArray}
@@ -290,34 +309,33 @@ const InteractiveEdit = () => {
             </Col>
           </Row>
         </div>
-        <Button
-          loading={loading}
-          onClick={() => {handleUpdate()}}
-          className="text-center float-right mb-4"
-          type="primary"
-          shape="round"
-          icon={<PlusOutlined />}
-          size="large"
-        >
-          {loading ? "Saving..." : "Update Activity"}
-        </Button>
-        <Modal
-          title="+ Add Question"
-          centered
-          visible={visible}
-          onCancel={() => setVisible(false)}
-          footer={null}
-          width={750}
-        >
-          <InteractiveActivityForm
-            editQuestion = {true}
-            visible={visible}
-            setVisible={setVisible}
-            addQuestionHandle={addQuestionHandle}
-            questionArray={questionArray}
-          />
+        <Row>
+          <Col span={24} style={{textAlignLast: 'right'}}>
+            <Button
+              loading={loading}
+              onClick={() => {handleUpdate()}}
+              className="text-center mb-4"
+              type="primary"
+              shape="round"
+              icon={<PlusOutlined />}
+              size="large"
+            >
+              {loading ? "Saving..." : "Update Activity"}
+            </Button>
+          </Col>
+        </Row>
 
-        </Modal>
+        <InteractiveActivityForm
+          setActiveQuestion={setActiveQuestion}
+          question={activeQuestion}
+          editQuestion = {editQuestion}
+          setEditQuestion={setEditQuestion}
+          visible={visible}
+          setVisible={setVisible}
+          addQuestionHandle={addQuestionHandle}
+          editQuestionHandle={editQuestionHandle}
+          questionArray={questionArray}
+        />
       </div>
     </InstructorRoute>
   );

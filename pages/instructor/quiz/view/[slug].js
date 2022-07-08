@@ -113,34 +113,9 @@ const QuizView = (
                     ) : (
                         <Tag color="#cd201f">HIDDEN</Tag>
                     )}
-                    extra={[
-                        <Button
-                            type="secondary"
-                            shape="round"
-                            icon={<EditOutlined />}
-                            onClick={() =>
-                                router.push(`/instructor/quiz/edit/${slug}`)
-                            }
-                        >
-                            EDIT
-                        </Button>,
-                        <Popconfirm
-                            placement="topRight"
-                            title="Are you sure you want to delete?"
-                            onConfirm={() => handleDelete(quiz._id)}
-                            // onCancel={cancel}
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button
-                                type="primary"
-                                shape="round"
-                                icon={<DeleteOutlined />}
-                            >
-                                DELETE
-                            </Button>
-                        </Popconfirm>,
-                    ]}
+                    extra={
+                        <Statistic className="text-right" title="Responses" value={responses.length} />
+                    }
                 >
                     <Row>
                         <Col span={20}>
@@ -149,9 +124,6 @@ const QuizView = (
                             <Paragraph style={{color:'#f0eff3'}}>
                                 {quiz.description}
                             </Paragraph>
-                        </Col>
-                        <Col span={4}>
-                            <Statistic className="text-right" title="Responses" value={responses.length} />
                         </Col>
                     </Row>
                 </PageHeader>
@@ -185,44 +157,42 @@ const QuizView = (
                                 itemLayout="horizontal"
                                 dataSource={responses}
                                 renderItem={(item, index) => (
-                                    <a
-                                        className="pointer"
-                                        onClick={() => openModal(item)}
-                                    >
-                                        <List.Item>
-                                            <List.Item.Meta
-                                                avatar={
-                                                    <Avatar size="small">{index + 1}</Avatar>
-                                                }
-                                                title={item.student?.name}
-                                                description={
-                                                    <Space>
-                                                        <small>{moment(item.submissionDate).format("L")}</small>
-                                                        { moment(item.submissionDate).isAfter(quiz.deadline) &&
-                                                            <Tag color="error">LATE</Tag>
-                                                        }
-                                                    </Space>
-                                                    }
-                                            />
-
-                                            {!item.return ?
-                                                <Space>
-                                                    <span className="score text-center">
-                                                        {item.grade}
-                                                    </span>
-                                                    <Tooltip title='Return Score'>
-                                                        <Button type='primary' icon={<RollbackOutlined />} shape='square' size='small' onClick={() => returnGrade(item)} />
-                                                    </Tooltip>
-                                                </Space>
-                                                : <Space direction="vertical" size={0} style={{ textAlign: 'center' }}>
-                                                    <span className="score text-center">
-                                                        {item.grade}
-                                                    </span>
-                                                    <small className="text-success">RETURNED</small>
-                                                </Space>
+                                    <List.Item>
+                                        <List.Item.Meta
+                                            avatar={
+                                                <Avatar size="small">{index + 1}</Avatar>
                                             }
-                                        </List.Item>
-                                    </a>
+                                            title={<a className="pointer" onClick={() => openModal(item)}>
+                                                {item.student?.name}
+                                                </a>
+                                            }
+                                            description={
+                                                <Space>
+                                                    <small>{moment(item.submissionDate).format("L")}</small>
+                                                    { moment(item.submissionDate).isAfter(quiz.deadline) &&
+                                                        <Tag color="error">LATE</Tag>
+                                                    }
+                                                </Space>
+                                                }
+                                        />
+
+                                        {!item.return ?
+                                            <Space>
+                                                <span className="score text-center">
+                                                    {Number(item.grade)}
+                                                </span>
+                                                <Tooltip title='Return Score'>
+                                                    <Button type='primary' icon={<RollbackOutlined />} shape='square' size='small' onClick={() => returnGrade(item)} />
+                                                </Tooltip>
+                                            </Space>
+                                            : <Space direction="vertical" size={0} style={{ textAlign: 'center' }}>
+                                                <span className="score text-center">
+                                                    {Number(item.grade)}
+                                                </span>
+                                                <small className="text-success">RETURNED</small>
+                                            </Space>
+                                        }
+                                    </List.Item>
                                 )}
                             />
                         </Card>
@@ -255,7 +225,7 @@ const QuizView = (
                             <Col span={7} className="text-right">
                                 <Statistic
                                     title="Score"
-                                    value={grade}
+                                    value={Number(grade)}
                                     suffix={`/${questionSet.length}`}
                                 />
                             </Col>
@@ -297,7 +267,7 @@ const QuizView = (
                                                             <Row key={ind}>
                                                                 <Col span={18}>
                                                                     <p className="text-primary">
-                                                                        { questionArray[index]?.options[ind]?.image && !questionArray[index]?.options[ind]?.text || questionArray[index]?.options[ind]?.text.includes('prelms')?
+                                                                        { questionArray[index]?.options[ind]?.image && !questionArray[index]?.options[ind]?.text || questionArray[index]?.options[ind]?.text.includes('.jpeg' || '.png' || '.jpg')?
                                                                             <Image width={100} src={ans} />
                                                                         :
                                                                             ans

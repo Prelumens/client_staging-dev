@@ -256,12 +256,18 @@ const QuizAdminView = (
                                                         return (
                                                             <Row key={ind}>
                                                                 <Col span={18}>
-                                                                    <p className="text-primary">{ans}</p>
+                                                                    <p className="text-primary">
+                                                                        { questionArray[index]?.options[ind]?.image && !questionArray[index]?.options[ind]?.text || questionArray[index]?.options[ind]?.text.includes('.jpeg' || '.png' || '.jpg')?
+                                                                            <Image width={100} src={ans} />
+                                                                        :
+                                                                            ans
+                                                                        }
+                                                                    </p>
                                                                 </Col>
                                                                 <Col span={6} className="text-right">
-                                                                    {questionArray[index].correctAnswer[ind].text === ans ?
-                                                                        <CheckOutlined className="text-success"/>
-                                                                    :  <CloseOutlined className="text-danger"/>
+                                                                    {questionArray[index]?.correctAnswer[ind]?.text === ans ?
+                                                                        <CheckOutlined className="text-success" />
+                                                                        : <CloseOutlined className="text-danger" />
                                                                     }
                                                                 </Col>
                                                             </Row>

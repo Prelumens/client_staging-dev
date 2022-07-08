@@ -146,7 +146,7 @@ const ListQuiz = () => {
             router.push(`/user/quiz-summary/${slugify(item.title.toLowerCase())}`)
         } else if (item.itemType === "Assignment"){
             router.push(`/user/assignment/summary/${slugify(item.title.toLowerCase())}`)
-        } else {
+        } else  if (item.itemType === "Interactive"){
             router.push(`/user/interactive/summary/${slugify(item.title.toLowerCase())}`)
         }
     }
@@ -263,7 +263,7 @@ const ListQuiz = () => {
                                                 />
                                                 {item.grade && item.return ? (<Space align="baseline">
                                                     <h5 className="text-success">
-                                                        {item.grade}
+                                                        {Number(item.grade)}
                                                     </h5>
                                                     <small className="text-muted">points</small>
                                                 </Space>)

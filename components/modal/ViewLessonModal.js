@@ -22,23 +22,36 @@ const ViewLessonModal = ({
                 centered
             >
                 <Row gutter={[16, 16]}>
-                    <Col span={16} >
-                        <div className="course-description mt-0">
-                            <h6>Lesson Description</h6>
-                            <p>{activeLesson.content}</p>
-                        </div>
-                    </Col>
-                    <Col span={8}>
-                        <div className="wrapper" style={{ alignSelf: 'center' }}>
-                            <ReactPlayer
-                                url={activeLesson.video?.Location}
-                                playing={false}
-                                controls={true}
-                                width="100%"
-                                height="100%"
-                            />
-                        </div>
-                    </Col>
+                    { activeLesson.video ?
+                        <>
+                        <Col span={16} >
+                            <div className="course-description mt-0">
+                                <h6>Lesson Description</h6>
+                                <p>{activeLesson.content}</p>
+                            </div>
+                        </Col>
+                        <Col span={8}>
+                            <div className="wrapper" style={{ alignSelf: 'center' }}>
+                                <ReactPlayer
+                                    url={activeLesson.video?.Location}
+                                    playing={false}
+                                    controls={true}
+                                    width="100%"
+                                    height="100%"
+                                />
+                            </div>
+                        </Col>
+                        </>
+                    :
+                        <Col span={24} >
+                            <div className="course-description mt-0">
+                                <h6>Lesson Description</h6>
+                                <p>{activeLesson.content}</p>
+                            </div>
+                        </Col>
+
+                    }
+
                 </Row>
                 {activeLesson.wikis?.length !== 0 &&
                     <Row>

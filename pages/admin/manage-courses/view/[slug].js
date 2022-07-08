@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminRoute from "../../../../components/routes/AdminRoute";
 import axios from "axios";
-import { Avatar, Tooltip, List, Button, Modal, Badge, Drawer, Col, Card, Row } from "antd";
+import { Avatar, Tooltip, List, Button, Modal, Badge, Drawer, Col, Card, Row, Tag, Divider } from "antd";
 import {
     QuestionOutlined,
     CloseOutlined,
@@ -33,6 +33,9 @@ const CourseView = () => {
     const [listLoad, setListLoad] = useState([])
     const [fileList, setFileList] = useState([]);
     const [lessons, setLessons] = useState([]);
+    const [quiz, setQuiz] = useState([]);
+    const [interactive, setInteractive] = useState([]);
+    const [assignment, setAssignment] = useState([]);
 
     //student count
     const [students, setStudents] = useState(0)
@@ -66,6 +69,28 @@ const CourseView = () => {
         course && studentCount()
     }, [course]);
 
+    useEffect(() => {
+        const fetchActivities = async () => {
+            const { data } = await axios.get('/api/activities');
+            var assignmentsToDisplay = data.assignments.filter(assignment => {
+                return assignment.instructor !== null;
+            });
+
+            var interactivesToDisplay = data.interactives.filter(interactive => {
+                return interactive.instructor !== null;
+            });
+
+            var quizzesToDisplay = data.quizzes.filter(quiz => {
+                return quiz.instructor !== null;
+            });
+
+            setQuiz(quizzesToDisplay)
+            setAssignment(assignmentsToDisplay);
+            setInteractive(interactivesToDisplay)
+        }
+        fetchActivities()
+    }, [])
+
     const loadCourse = async () => {
         const { data } = await axios.get(`/api/course/${slug}`);
         console.log(data.course.lessons.length)
@@ -83,6 +108,28 @@ const CourseView = () => {
         setLoading(false)
     };
 
+    //View Page action
+    const onView = (record) => {
+        console.log('record', record)
+        let quizType = quiz.filter((item) => {
+            return item._id === record._id
+        })
+        let assignmentType = assignment.filter((item) => {
+            return item._id === record._id
+        })
+        let interactiveType = interactive.filter((item) => {
+            return item._id === record._id
+        })
+        console.log('interactiveType', interactiveType)
+
+        if (quizType.length > 0) {
+            router.push(`/admin/manage-activities/quiz/${record.slug}`)
+        } else if (assignmentType.length > 0) {
+            router.push(`/admin/manage-activities/assignment/${record.slug}`)
+        } else if (interactiveType.length > 0) {
+            router.push(`/admin/manage-activities/interactive/${record.slug}`)
+        }
+    }
 
     const studentCount = async () => {
         const { data } = await axios.post(`/api/admin/student-count`, {
@@ -105,12 +152,20 @@ const CourseView = () => {
 
     const handleUnpublish = async (e, courseId) => {
         try {
-            let answer = window.confirm('Are you sure you want to unpublish this course?')
-            if (!answer) return;
-            const { data } = await axios.put(`/api/admin/course/unpublish/${courseId}`)
-            setCourse(data)
-            toast('Course unpublished')
-            window.location.reload();
+            const unpublish = async () => {
+                const { data } = await axios.put(`/api/admin/course/unpublish/${courseId}`)
+                setCourse(data)
+                toast('Course unpublished successfully!')
+                // window.location.reload();
+            }
+            if (courseId) {
+                Modal.confirm({
+                    title: 'Are you sure you want to unpublish this course?',
+                    onOk: () => {
+                        unpublish()
+                    }
+                })
+            }
         } catch (err) {
             toast('Course unpublish failed. Try again')
         }
@@ -155,10 +210,12 @@ const CourseView = () => {
                                         <h5 className="mt-2 text-primary">{course.name}</h5>
                                         <p style={{ marginTop: "-10px" }}>
                                             {course.lessons && course.lessons.length} Lessons
-                                        </p>
-                                        <p style={{ marginTop: "-15px", fontSize: "10px" }}>
+                                            <Divider type="vertical" />
                                             {course.category}
                                         </p>
+                                        <div style={{ marginTop: "-10px" }}>
+                                            {course.published ? <Tag color="processing">PUBLISHED</Tag> : <Tag color="default">UNPUBLISHED</Tag>}
+                                        </div>
                                     </div>
 
                                     <div className="d-flex pt-4">
@@ -263,7 +320,7 @@ const CourseView = () => {
                                             bodyStyle={{ paddingTop: 0 }}
                                             className="header-solid h-full  ant-list-yes"
                                             title={<h6 className="font-semibold m-0">Activities</h6>}
-                                            extra={<a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
+                                            extra={listLoad.length <= 3 && <a onClick={() => setListLoad(todos)} className="text-primary">See All</a>}
                                         >
                                             <List
                                                 loading={loading}
@@ -271,8 +328,7 @@ const CourseView = () => {
                                                 dataSource={listLoad}
                                                 renderItem={(item, index) => (
                                                     <a
-                                                    // href={`/instructor/quiz/view/${item.slug}`}
-                                                    // className="pointer"
+                                                        onClick={() => onView(item)}
                                                     >
                                                         <List.Item>
                                                             <List.Item.Meta
