@@ -10,7 +10,8 @@ import {
     BellOutlined,
     LockOutlined,
     InfoCircleOutlined,
-    ContainerOutlined
+    ContainerOutlined,
+    CommentOutlined
 } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import { toast } from "react-toastify";
@@ -19,6 +20,7 @@ import { useRouter } from "next/router";
 import AddStudentForm from "../../../../components/forms/AddStudentForm";
 import NotificationModal from "../../../../components/modal/NotificationModal";
 import ViewLessonModal from "../../../../components/modal/ViewLessonModal";
+import InstructorFeedbackModal from '../../../../components/modal/InstructorFeedbackModal'
 import moment from 'moment';
 
 const CourseView = () => {
@@ -36,6 +38,8 @@ const CourseView = () => {
     const [quiz, setQuiz] = useState([]);
     const [interactive, setInteractive] = useState([]);
     const [assignment, setAssignment] = useState([]);
+
+    const [feedbackVisible, setFeedbackVisible] = useState(false);
 
     //student count
     const [students, setStudents] = useState(0)
@@ -255,6 +259,16 @@ const CourseView = () => {
                                             </Badge>
                                         </Tooltip>
 
+                                        {/* feedback */}
+                                        <Tooltip title="Course Feedback">
+                                            <Badge size="small" className="mr-4">
+                                                <CommentOutlined
+                                                    className="h5 pointer text-primary"
+                                                    onClick={() => setFeedbackVisible(true)}
+                                                />
+                                            </Badge>
+                                        </Tooltip>
+
                                         {/* other details */}
                                         <Tooltip title="Other Details">
                                             <InfoCircleOutlined
@@ -447,6 +461,11 @@ const CourseView = () => {
                     setLessonView={setLessonView}
                     lessonView={lessonView}
                     activeLesson={activeLesson}
+                />
+                <InstructorFeedbackModal
+                    feedbackVisible={feedbackVisible}
+                    setFeedbackVisible={setFeedbackVisible}
+                    course={course}
                 />
             </div>
         </AdminRoute>
